@@ -1,17 +1,8 @@
 import { Schema, model } from 'mongoose';
 
 const ProductSchema = new Schema({
-  productType: {
-    type: Schema.Types.ObjectId,
-    ref: 'ProductType',
-    required: true,
-  },
   name: {
     type: String,
-    required: true,
-  },
-  attributes: {
-    type: Schema.Types.Mixed, // Flexible field for dynamic attributes
     required: true,
   },
   category: {
