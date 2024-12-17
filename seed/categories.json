@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Gardening Tools",
+    "image": "https://example.com/images/categories/gardening-tools.jpg",
+    "description": "Essential tools for all your gardening needs."
+  },
+  {
+    "name": "Outdoor Furniture",
+    "image": "https://example.com/images/categories/outdoor-furniture.jpg",
+    "description": "Comfortable and stylish furniture for your outdoor spaces."
+  },
+  {
+    "name": "Plants & Seeds",
+    "image": "https://example.com/images/categories/plants-seeds.jpg",
+    "description": "A variety of plants and seeds to grow your garden."
+  },
+  {
+    "name": "Garden Decor",
+    "image": "https://example.com/images/categories/garden-decor.jpg",
+    "description": "Beautify your garden with our selection of decor items."
+  }
+]

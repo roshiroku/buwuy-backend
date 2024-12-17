@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "password": "Abcd123!",
+    "role": "admin",
+    "avatar": "https://example.com/avatars/admin.png"
+  },
+  {
+    "name": "Moderator User",
+    "email": "moderator@example.com",
+    "password": "Abcd456!",
+    "role": "moderator",
+    "avatar": "https://example.com/avatars/moderator.png"
+  },
+  {
+    "name": "Regular User",
+    "email": "user@example.com",
+    "password": "Abcd789!",
+    "role": "user",
+    "avatar": "https://example.com/avatars/user.png"
+  }
+]

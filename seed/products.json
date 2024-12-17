@@ -1,0 +1,167 @@
+[
+  {
+    "name": "Premium Garden Shovel",
+    "description": "A durable and ergonomic shovel perfect for all your gardening tasks.",
+    "images": [
+      {
+        "src": "https://example.com/images/products/garden-shovel-1.jpg",
+        "alt": "Premium Garden Shovel Front View",
+        "description": "Front view of the premium garden shovel."
+      },
+      {
+        "src": "https://example.com/images/products/garden-shovel-2.jpg",
+        "alt": "Premium Garden Shovel Side View",
+        "description": "Side view showcasing the ergonomic handle."
+      }
+    ],
+    "price": 29.99,
+    "stock": 150,
+    "variants": [
+      {
+        "name": "Standard",
+        "description": "Standard length handle.",
+        "images": [
+          {
+            "src": "https://example.com/images/products/garden-shovel-variant-standard.jpg",
+            "alt": "Standard Variant",
+            "description": "Standard variant with regular handle length."
+          }
+        ],
+        "price": 29.99,
+        "stock": 100
+      },
+      {
+        "name": "Extended Handle",
+        "description": "Longer handle for added reach.",
+        "images": [
+          {
+            "src": "https://example.com/images/products/garden-shovel-variant-extended.jpg",
+            "alt": "Extended Handle Variant",
+            "description": "Variant with an extended handle for better leverage."
+          }
+        ],
+        "price": 34.99,
+        "stock": 50
+      }
+    ],
+    "category": "gardening-tools",
+    "tags": [
+      "tools",
+      "garden-decor"
+    ]
+  },
+  {
+    "name": "Deluxe Outdoor Patio Set",
+    "description": "Create a comfortable outdoor living space with this deluxe patio set.",
+    "images": [
+      {
+        "src": "https://example.com/images/products/patio-set-1.jpg",
+        "alt": "Deluxe Outdoor Patio Set",
+        "description": "Complete patio set with table and chairs."
+      }
+    ],
+    "price": 499.99,
+    "stock": 30,
+    "variants": [
+      {
+        "name": "Standard",
+        "description": "Includes 4 chairs and 1 table.",
+        "images": [
+          {
+            "src": "https://example.com/images/products/patio-set-variant-standard.jpg",
+            "alt": "Standard Patio Set",
+            "description": "Standard variant with 4 chairs and 1 table."
+          }
+        ],
+        "price": 499.99,
+        "stock": 20
+      },
+      {
+        "name": "Extended",
+        "description": "Includes 6 chairs and 1 table.",
+        "images": [
+          {
+            "src": "https://example.com/images/products/patio-set-variant-extended.jpg",
+            "alt": "Extended Patio Set",
+            "description": "Extended variant with 6 chairs and 1 table."
+          }
+        ],
+        "price": 599.99,
+        "stock": 10
+      }
+    ],
+    "category": "outdoor-furniture",
+    "tags": [
+      "outdoor-furniture",
+      "garden-decor"
+    ]
+  },
+  {
+    "name": "Organic Tomato Seeds",
+    "description": "Grow your own delicious and organic tomatoes with our high-yield seeds.",
+    "images": [
+      {
+        "src": "https://example.com/images/products/tomato-seeds.jpg",
+        "alt": "Organic Tomato Seeds",
+        "description": "Packet of organic tomato seeds."
+      }
+    ],
+    "price": 9.99,
+    "stock": 500,
+    "variants": [
+      {
+        "name": "Cherry Tomatoes",
+        "description": "Sweet and juicy cherry tomatoes.",
+        "images": [],
+        "price": 9.99,
+        "stock": 300
+      },
+      {
+        "name": "Beefsteak Tomatoes",
+        "description": "Large and flavorful beefsteak tomatoes.",
+        "images": [],
+        "price": 11.99,
+        "stock": 200
+      }
+    ],
+    "category": "plants-seeds",
+    "tags": [
+      "plants",
+      "seeds"
+    ]
+  },
+  {
+    "name": "Solar-Powered Garden Lights",
+    "description": "Illuminate your garden paths with these eco-friendly solar-powered lights.",
+    "images": [
+      {
+        "src": "https://example.com/images/products/garden-lights-1.jpg",
+        "alt": "Solar Garden Lights",
+        "description": "Set of solar-powered garden lights installed along a path."
+      }
+    ],
+    "price": 49.99,
+    "stock": 100,
+    "variants": [
+      {
+        "name": "Set of 6",
+        "description": "Includes 6 garden lights.",
+        "images": [],
+        "price": 49.99,
+        "stock": 60
+      },
+      {
+        "name": "Set of 12",
+        "description": "Includes 12 garden lights.",
+        "images": [],
+        "price": 89.99,
+        "stock": 40
+      }
+    ],
+    "category": "garden-decor",
+    "tags": [
+      "garden-decor",
+      "outdoor-furniture"
+    ]
+  }
+]

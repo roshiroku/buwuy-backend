@@ -1,0 +1,8 @@
+{
+  "seed": {
+    "users": "seed/users.json",
+    "tags": "seed/tags.json",
+    "categories": "seed/categories.json",
+    "products": "seed/products.json"
+  }
+}
