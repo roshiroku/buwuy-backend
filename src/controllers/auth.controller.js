@@ -1,54 +1,41 @@
-import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import { omit, pick } from '../utils/object.utils.js';
+import User from '../models/User.js';
 
 // Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+const generateToken = (input, expiresIn = '30d') => {
+  return jwt.sign(input, process.env.JWT_SECRET, { expiresIn });
 };
 
 // Register User
 export async function register(req, res) {
-  const { name, email, password, role } = req.body;
-
   try {
-    let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ message: 'User already exists' });
+    const { name, email, password } = req.body;
+    const user = await User.create({ name, email, password });
+    const token = generateToken(pick(user, '_id', 'role', 'avatar'));
 
-    user = await User.create({ name, email, password, role });
-
-    res.status(201).json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      token: generateToken(user.id),
-    });
+    res.status(201).json({ ...omit(user.toObject(), 'password'), token });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ message: 'Server Error' });
   }
 }
 
 // Login User
 export async function login(req, res) {
-  const { email, password } = req.body;
-
   try {
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
     const isMatch = await user.matchPassword(password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    res.json({
-      _id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      token: generateToken(user.id),
-    });
+    const token = generateToken(pick(user, '_id', 'role', 'avatar'));
+
+    res.json({ ...omit(user.toObject(), 'password'), token });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send({ message: 'Server Error' });
   }
 }
