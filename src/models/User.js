@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import bcryptjs from 'bcryptjs';
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -20,10 +20,11 @@ const UserSchema = new Schema({
     enum: ['admin', 'moderator', 'user'],
     default: 'user',
   },
+  avatar: String
 }, { timestamps: true });
 
 // Password hashing middleware
-UserSchema.pre('save', async function (next) {
+userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   const salt = await bcryptjs.genSalt(10);
   this.password = await bcryptjs.hash(this.password, salt);
@@ -31,8 +32,8 @@ UserSchema.pre('save', async function (next) {
 });
 
 // Method to compare password
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcryptjs.compare(enteredPassword, this.password);
 };
 
-export default model('User', UserSchema);
+export default model('User', userSchema);

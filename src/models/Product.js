@@ -1,26 +1,65 @@
 import { Schema, model } from 'mongoose';
+import { slugify } from '../utils/string.utils.js';
 
-const ProductSchema = new Schema({
+const imageSchema = new Schema({
+  src: {
+    type: String,
+    required: true
+  },
+  alt: String,
+  description: String
+}, { _id: false });
+
+const variantSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: 'Category',
+  description: String,
+  images: [imageSchema],
+  price: Number,
+  stock: Number
+}, { _id: false });
+
+const productSchema = new Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true
   },
-  tags: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Tag',
-  }],
+  slug: {
+    type: String,
+    index: true,
+    unique: true,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  images: [imageSchema],
   price: {
     type: Number,
-    required: true,
+    required: true
   },
   stock: {
     type: Number,
-    default: 0,
+    default: 0
   },
+  variants: [variantSchema],
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    index: true
+  },
+  tags: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Tag'
+  }]
 }, { timestamps: true });
 
-export default model('Product', ProductSchema);
+productSchema.pre('save', function () {
+  this.slug = slugify(this.name);
+});
+
+export default model('Product', productSchema);
