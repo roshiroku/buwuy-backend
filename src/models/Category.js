@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { slugify } from '../utils/string.utils.js';
+import { slugifyProp } from '../utils/schema.utils.js';
 
 const categorySchema = new Schema({
   name: {
@@ -10,15 +10,12 @@ const categorySchema = new Schema({
   slug: {
     type: String,
     index: true,
-    unique: true
+    unique: true,
+    required: true
   },
   image: String
 }, { timestamps: true });
 
-categorySchema.pre('save', function (next) {
-  if (!this.isModified('name')) return next();
-  this.slug = slugify(this.name);
-  next();
-});
+slugifyProp(categorySchema);
 
 export default model('Category', categorySchema);

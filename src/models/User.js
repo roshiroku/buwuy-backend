@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import bcryptjs from 'bcryptjs';
+import { hashProp } from '../utils/schema.utils.js';
 
 const userSchema = new Schema({
   name: {
@@ -23,17 +23,6 @@ const userSchema = new Schema({
   avatar: String
 }, { timestamps: true });
 
-// Password hashing middleware
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  const salt = await bcryptjs.genSalt(10);
-  this.password = await bcryptjs.hash(this.password, salt);
-  next();
-});
-
-// Method to compare password
-userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcryptjs.compare(enteredPassword, this.password);
-};
+hashProp(userSchema);
 
 export default model('User', userSchema);

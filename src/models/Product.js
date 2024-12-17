@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { slugify } from '../utils/string.utils.js';
+import { slugifyProp } from '../utils/schema.utils.js';
 
 const imageSchema = new Schema({
   src: {
@@ -30,7 +30,8 @@ const productSchema = new Schema({
   slug: {
     type: String,
     index: true,
-    unique: true
+    unique: true,
+    required: true
   },
   description: {
     type: String,
@@ -57,10 +58,6 @@ const productSchema = new Schema({
   }]
 }, { timestamps: true });
 
-productSchema.pre('save', function (next) {
-  if (!this.isModified('name')) return next();
-  this.slug = slugify(this.name);
-  next();
-});
+slugifyProp(productSchema);
 
 export default model('Product', productSchema);

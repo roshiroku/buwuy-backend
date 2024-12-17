@@ -1,12 +1,10 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import config from 'config';
-import bcryptjs from 'bcryptjs';
 import User from '../models/User.js';
 import Tag from '../models/Tag.js';
 import Category from '../models/Category.js';
 import Product from '../models/Product.js';
-import { slugify } from '../utils/string.utils.js';
 
 const seed = config.has('seed') && config.get('seed');
 const userData = seed.users && JSON.parse(readFileSync(path.resolve(seed.users)));
@@ -22,25 +20,21 @@ export default async function seedData() {
     // Seed Users
     if (userData && !await User.countDocuments()) {
       isSeeding = true;
-      const salt = await bcryptjs.genSalt(10);
-      await User.insertMany(userData.map((user) => ({
-        ...user,
-        password: bcryptjs.hashSync(user.password, salt)
-      })));
+      await User.insertMany(userData);
       console.log('Users seeded');
     }
 
     // Seed Tags
     if (tagData && !await Tag.countDocuments()) {
       isSeeding = true;
-      await Tag.insertMany(tagData.map((tag) => ({ ...tag, slug: slugify(tag.name) })));
+      await Tag.insertMany(tagData);
       console.log('Tags seeded');
     }
 
     // Seed Categories
     if (categoryData && !await Category.countDocuments()) {
       isSeeding = true;
-      await Category.insertMany(categoryData.map((cat) => ({ ...cat, slug: slugify(cat.name) })));
+      await Category.insertMany(categoryData);
       console.log('Categories seeded');
     }
 
@@ -58,7 +52,6 @@ export default async function seedData() {
       // Replace slugs with ObjectIDs
       const products = productData.map((product) => ({
         ...product,
-        slug: slugify(product.name),
         category: categoryMap[product.category],
         tags: product.tags.map((slug) => tagMap[slug]),
       }));
