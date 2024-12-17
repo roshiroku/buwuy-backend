@@ -30,8 +30,7 @@ const productSchema = new Schema({
   slug: {
     type: String,
     index: true,
-    unique: true,
-    required: true
+    unique: true
   },
   description: {
     type: String,
@@ -58,8 +57,10 @@ const productSchema = new Schema({
   }]
 }, { timestamps: true });
 
-productSchema.pre('save', function () {
+productSchema.pre('save', function (next) {
+  if (!this.isModified('name')) return next();
   this.slug = slugify(this.name);
+  next();
 });
 
 export default model('Product', productSchema);

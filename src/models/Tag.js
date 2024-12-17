@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { slugify } from '../utils/string.utils.js';
 
 const tagSchema = new Schema({
   name: {
@@ -9,13 +10,14 @@ const tagSchema = new Schema({
   slug: {
     type: String,
     index: true,
-    unique: true,
-    required: true
+    unique: true
   }
 }, { timestamps: true });
 
-tagSchema.pre('save', function () {
+tagSchema.pre('save', function (next) {
+  if (!this.isModified('name')) return next();
   this.slug = slugify(this.name);
+  next();
 });
 
 export default model('Tag', tagSchema);
