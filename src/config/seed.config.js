@@ -40,24 +40,8 @@ export default async function seedData() {
 
     // Seed Products
     if (productData && !await Product.countDocuments()) {
-      // Fetch Tags and Categories to map slugs to ObjectIDs
-      const tags = await Tag.find();
-      const categories = await Category.find();
-      const tagMap = {};
-      const categoryMap = {};
-
-      tags.forEach((tag) => tagMap[tag.slug] = tag._id);
-      categories.forEach((category) => categoryMap[category.slug] = category._id);
-
-      // Replace slugs with ObjectIDs
-      const products = productData.map((product) => ({
-        ...product,
-        category: categoryMap[product.category],
-        tags: product.tags.map((slug) => tagMap[slug]),
-      }));
-
       isSeeding = true;
-      await Product.insertMany(products);
+      await Product.insertMany(productData);
       console.log('Products seeded');
     }
 

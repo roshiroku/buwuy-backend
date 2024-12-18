@@ -10,33 +10,29 @@ import {
 
 const router = Router();
 
-// All routes are protected and require admin or moderator roles
-router.use(protect);
-router.use(authorize('admin', 'moderator'));
-
 // @route   POST /api/products
 // @desc    Create a product
 // @access  Admin, Moderator
-router.post('/', createProduct);
+router.post('/', protect, authorize('admin', 'moderator'), createProduct);
 
 // @route   GET /api/products
 // @desc    Get all products
-// @access  Admin, Moderator
+// @access  Guest
 router.get('/', getProducts);
 
 // @route   GET /api/products/:id
 // @desc    Get single product
-// @access  Admin, Moderator
+// @access  Guest
 router.get('/:id', getProduct);
 
 // @route   PUT /api/products/:id
 // @desc    Update product
 // @access  Admin, Moderator
-router.put('/:id', updateProduct);
+router.put('/:id', protect, authorize('admin', 'moderator'), updateProduct);
 
 // @route   DELETE /api/products/:id
 // @desc    Delete product
 // @access  Admin, Moderator
-router.delete('/:id', deleteProduct);
+router.delete('/:id', protect, authorize('admin', 'moderator'), deleteProduct);
 
 export default router;
