@@ -19,10 +19,10 @@ export async function protect(req, res, next) {
   try {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select('-password');
+    req.user = await User.findById(decoded._id).select('-password');
     next();
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
     res.status(401).json({ message: 'Not authorized, token failed' });
   }
 }

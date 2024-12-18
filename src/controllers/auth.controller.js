@@ -11,6 +11,10 @@ const generateToken = (input, expiresIn = '30d') => {
 export async function register(req, res) {
   try {
     const { name, email, password } = req.body;
+    
+    const duplicate = await User.find({ email });
+    if (duplicate) return res.status(400).json({ message: 'Duplicate email' });
+
     const user = await User.create({ name, email, password });
     const token = generateToken(pick(user, '_id', 'role', 'avatar'));
 
