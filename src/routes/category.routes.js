@@ -7,13 +7,14 @@ import {
   updateCategory,
   deleteCategory
 } from '../controllers/category.controller.js';
+import { uploadImage } from '../middleware/upload.middleware.js';
 
 const router = Router();
 
 // @route   POST /api/categories
 // @desc    Create a category
 // @access  Admin, Moderator
-router.post('/', protect, authorize('admin', 'moderator'), createCategory);
+router.post('/', protect, authorize('admin', 'moderator'), uploadImage('uploads/categories').single('image'), createCategory);
 
 // @route   GET /api/categories
 // @desc    Get all categories
@@ -28,7 +29,7 @@ router.get('/:id', getCategory);
 // @route   PUT /api/categories/:id
 // @desc    Update category
 // @access  Admin, Moderator
-router.put('/:id', protect, authorize('admin', 'moderator'), updateCategory);
+router.put('/:id', protect, authorize('admin', 'moderator'), uploadImage('uploads/categories').single('image'), updateCategory);
 
 // @route   DELETE /api/categories/:id
 // @desc    Delete category

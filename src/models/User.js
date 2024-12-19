@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { hashProp } from '../utils/schema.utils.js';
+import { fileProp, hashProp } from '../utils/schema.utils.js';
 
 const userSchema = new Schema({
   name: {
@@ -24,5 +24,6 @@ const userSchema = new Schema({
 }, { timestamps: true });
 
 hashProp(userSchema);
+fileProp(userSchema, 'avatar');
 
 export default model('User', userSchema);

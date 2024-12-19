@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { omit, pick } from '../utils/object.utils.js';
 import User from '../models/User.js';
+import { omit, pick } from '../utils/object.utils.js';
+import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 
 // Generate JWT
 const generateToken = (input, expiresIn = '30d') => {
@@ -11,15 +12,17 @@ const generateToken = (input, expiresIn = '30d') => {
 export async function register(req, res) {
   try {
     const { name, email, password } = req.body;
-    
+    const avatar = normalizeFilePath(req.file) ?? req.body.avatar;
+
     const duplicate = await User.find({ email });
     if (duplicate) return res.status(400).json({ message: 'Duplicate email' });
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({ name, email, password, avatar });
     const token = generateToken(pick(user, '_id', 'role', 'avatar'));
 
     res.status(201).json({ ...omit(user.toObject(), 'password'), token });
   } catch (err) {
+    deleteFile(req.file);
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }

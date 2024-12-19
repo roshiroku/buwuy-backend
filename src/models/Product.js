@@ -1,7 +1,7 @@
 import { Schema, isValidObjectId, model } from 'mongoose';
 import Category from './Category.js';
 import Tag from './Tag.js';
-import { slugifyProp } from '../utils/schema.utils.js';
+import { fileProp, slugifyProp } from '../utils/schema.utils.js';
 
 const imageSchema = new Schema({
   src: {
@@ -61,6 +61,9 @@ const productSchema = new Schema({
 }, { timestamps: true });
 
 slugifyProp(productSchema);
+fileProp(productSchema, 'images.src');
+fileProp(productSchema, 'variants.images.src');
+// fileProp(imageSchema, 'src');
 
 productSchema.pre('insertMany', async function (next, docs) {
   const categories = await Category.find();

@@ -1,15 +1,37 @@
 import Product from '../models/Product.js';
+import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
+
+function handleUploads(req) {
+  const { images, variants } = req.body;
+  const { imageFiles = [], variantImageFiles = [] } = req.files;
+  let index = 0;
+
+  images?.forEach((image) => {
+    image.src ??= normalizeFilePath(imageFiles[index++]);
+  });
+
+  index = 0;
+  variants?.forEach((variant) => {
+    variant.images?.forEach((image) => {
+      image.src ??= normalizeFilePath(variantImageFiles[index++]);
+    });
+  });
+
+  return { images, variants };
+}
 
 // Create Product
 export async function createProduct(req, res) {
   try {
-    const { name, description, price, stock, variants, category, tags } = req.body;
+    handleUploads(req);
+    const { name, description, price, stock, images, variants, category, tags } = req.body;
 
     const product = await Product.create({
       name,
       description,
       price,
       stock,
+      images,
       variants,
       category,
       tags
@@ -17,6 +39,8 @@ export async function createProduct(req, res) {
 
     res.status(201).json(product);
   } catch (err) {
+    req.files.imageFiles?.forEach((file) => deleteFile(file));
+    req.files.variantImageFiles?.forEach((file) => deleteFile(file));
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }
@@ -53,7 +77,8 @@ export async function getProduct(req, res) {
 // Update Product
 export async function updateProduct(req, res) {
   try {
-    const { name, description, price, stock, variants, category, tags } = req.body;
+    handleUploads(req);
+    const { name, description, price, stock, images, variants, category, tags } = req.body;
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -64,6 +89,7 @@ export async function updateProduct(req, res) {
     product.description = description ?? product.description;
     product.price = price ?? product.price;
     product.stock = stock ?? product.stock;
+    product.images = images ?? product.images;
     product.variants = variants ?? product.variants;
     product.category = category ?? product.category;
     product.tags = tags ?? product.tags;
@@ -71,6 +97,8 @@ export async function updateProduct(req, res) {
     await product.save();
     res.json(product);
   } catch (err) {
+    req.files.imageFiles?.forEach((file) => deleteFile(file));
+    req.files.variantImageFiles?.forEach((file) => deleteFile(file));
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }

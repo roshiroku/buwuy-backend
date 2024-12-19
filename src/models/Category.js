@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { slugifyProp } from '../utils/schema.utils.js';
+import { fileProp, slugifyProp } from '../utils/schema.utils.js';
 
 const categorySchema = new Schema({
   name: {
@@ -17,5 +17,6 @@ const categorySchema = new Schema({
 }, { timestamps: true });
 
 slugifyProp(categorySchema);
+fileProp(categorySchema);
 
 export default model('Category', categorySchema);

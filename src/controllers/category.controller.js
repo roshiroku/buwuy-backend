@@ -1,12 +1,15 @@
 import Category from '../models/Category.js';
+import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 
 // Create Category
 export async function createCategory(req, res) {
   try {
     const { name } = req.body;
-    const category = await Category.create({ name });
+    const image = normalizeFilePath(req.file) ?? req.body.image;
+    const category = await Category.create({ name, image });
     res.status(201).json(category);
   } catch (err) {
+    deleteFile(req.file);
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }
@@ -44,17 +47,20 @@ export async function getCategory(req, res) {
 export async function updateCategory(req, res) {
   try {
     const { name } = req.body;
-    let category = await Category.findById(req.params.id);
+    const image = normalizeFilePath(req.file) ?? req.body.image;
+    const category = await Category.findById(req.params.id);
 
     if (!category) {
       return res.status(404).json({ message: 'Category not found' });
     }
 
     category.name = name ?? category.name;
+    category.image = image ?? category.image;
 
     await category.save();
     res.json(category);
   } catch (err) {
+    deleteFile(req.file);
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }
