@@ -1,3 +1,4 @@
+import Category from '../models/Category.js';
 import Product from '../models/Product.js';
 import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 
@@ -39,8 +40,15 @@ export async function createProduct(req, res) {
 // Get Products
 export async function getProducts(req, res) {
   try {
-    const { skip, limit, ...params } = req.query;
+    const { skip, limit, categorySlug, ...params } = req.query;
+
+    if (categorySlug) {
+      const category = await Category.findOne({ slug: categorySlug });
+      params.category = [params.category, category?._id].filter(Boolean);
+    }
+
     const products = await Product.find(params).skip(skip).limit(limit);
+
     res.json(products);
   } catch (err) {
     console.error(err.message);
