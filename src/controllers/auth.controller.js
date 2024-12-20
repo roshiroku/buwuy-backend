@@ -15,7 +15,10 @@ export async function register(req, res) {
     const avatar = normalizeFilePath(req.file) ?? req.body.avatar;
 
     const duplicate = await User.find({ email });
-    if (duplicate) return res.status(400).json({ message: 'Duplicate email' });
+    if (duplicate) {
+      deleteFile(req.file);
+      return res.status(400).json({ message: 'Duplicate email' });
+    }
 
     const user = await User.create({ name, email, password, avatar });
     const token = generateToken(pick(user, '_id', 'role', 'avatar'));

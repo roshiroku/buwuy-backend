@@ -36,8 +36,8 @@ export function fileProp(schema, prop = 'image') {
   schema.post('save', function (doc, next) {
     const oldFiles = doc[oldFilesProp];
     const newFiles = getFiles(doc, path);
-    const files = oldFiles.filter((file) => !newFiles.includes(file));
-    files.forEach((file) => deleteFile(file.substring(1)));
+    const files = oldFiles?.filter((file) => !newFiles.includes(file));
+    files?.forEach((file) => deleteFile(file.substring(1)));
     next();
   });
 
@@ -90,7 +90,7 @@ export function fileProp(schema, prop = 'image') {
     } else {
       if (path.length > 1) {
         files.push(...getFiles(doc[prop], path.slice(1)));
-      } else if (doc[prop].startsWith('/')) {
+      } else if (doc[prop]?.startsWith('/')) {
         files.push(doc[prop]);
       }
     }

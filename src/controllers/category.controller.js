@@ -51,6 +51,7 @@ export async function updateCategory(req, res) {
     const category = await Category.findById(req.params.id);
 
     if (!category) {
+      deleteFile(req.file);
       return res.status(404).json({ message: 'Category not found' });
     }
 
