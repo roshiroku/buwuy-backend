@@ -49,3 +49,13 @@ export async function login(req, res) {
     res.status(500).send({ message: 'Server Error' });
   }
 }
+
+// Auth User
+export async function auth(req, res) {
+  try {
+    res.status(201).json(omit(req.user, 'password'));
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ message: 'Server Error' });
+  }
+}
