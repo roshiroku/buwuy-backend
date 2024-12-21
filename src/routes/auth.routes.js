@@ -13,7 +13,7 @@ router.get('/', protect, auth);
 // @route   POST /api/auth/register
 // @desc    Register user
 // @access  Public
-router.post('/register', uploadImage('uploads/users/avatar').single('avatar'), register);
+router.post('/register', uploadImage('uploads/users/avatars').single('avatar'), register);
 
 // @route   POST /api/auth/login
 // @desc    Login user

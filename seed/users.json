@@ -1,20 +1,29 @@
 [
   {
-    "name": "Admin User",
+    "name": {
+      "first": "Admin",
+      "last": "User"
+    },
     "email": "admin@example.com",
     "password": "Abcd123!",
     "role": "admin",
     "avatar": "https://example.com/avatars/admin.png"
   },
   {
-    "name": "Moderator User",
+    "name": {
+      "first": "Moderator",
+      "last": "User"
+    },
     "email": "moderator@example.com",
     "password": "Abcd456!",
     "role": "moderator",
     "avatar": "https://example.com/avatars/moderator.png"
   },
   {
-    "name": "Regular User",
+    "name": {
+      "first": "Regular",
+      "last": "User"
+    },
     "email": "user@example.com",
     "password": "Abcd789!",
     "role": "user",

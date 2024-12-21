@@ -14,7 +14,7 @@ export async function register(req, res) {
     const { name, email, password } = req.body;
     const avatar = normalizeFilePath(req.file) ?? req.body.avatar;
 
-    const duplicate = await User.find({ email });
+    const duplicate = await User.findOne({ email });
     if (duplicate) {
       deleteFile(req.file);
       return res.status(400).json({ message: 'Duplicate email' });
