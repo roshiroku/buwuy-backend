@@ -13,6 +13,10 @@ const categorySchema = new Schema({
     unique: true,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   image: String
 }, { timestamps: true });
 
