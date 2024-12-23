@@ -4,9 +4,9 @@ import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 // Create Category
 export async function createCategory(req, res) {
   try {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const image = normalizeFilePath(req.file) ?? req.body.image;
-    const category = await Category.create({ name, image });
+    const category = await Category.create({ name, description, image });
     res.status(201).json(category);
   } catch (err) {
     deleteFile(req.file);
@@ -46,7 +46,7 @@ export async function getCategory(req, res) {
 // Update Category
 export async function updateCategory(req, res) {
   try {
-    const { name } = req.body;
+    const { name, description } = req.body;
     const image = normalizeFilePath(req.file) ?? req.body.image;
     const category = await Category.findById(req.params.id);
 
@@ -56,6 +56,7 @@ export async function updateCategory(req, res) {
     }
 
     category.name = name ?? category.name;
+    category.description = description ?? category.description;
     category.image = image ?? category.image;
 
     await category.save();
