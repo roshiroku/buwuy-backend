@@ -23,13 +23,16 @@ export function slugifyProp(schema, { src = 'name', dst = 'slug' } = {}) {
 
 export function fileProp(schema, prop = 'image') {
   const path = prop.split('.');
-  const [root] = path;
   const oldFilesProp = `_old${ucFirst(path.map(ucFirst).join(''))}Files`;
 
-  // Set previous src value before setting new one
-  schema.path(root).set(function (value) {
-    this[oldFilesProp] = getFiles(this, path);
-    return value;
+  // Pre-save hook to capture the previous file
+  schema.pre('save', async function () {
+    if (this._id) {
+      const oldDoc = await this.model().findById(this._id);
+      this[oldFilesProp] = getFiles(oldDoc, path);
+    } else {
+      this[oldFilesProp] = [];
+    }
   });
 
   // Post-save hook to delete previous file if the src has changed

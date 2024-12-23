@@ -154,7 +154,6 @@ export async function updateVariant(req, res) {
       return res.status(404).json({ message: 'Variant not found' });
     }
 
-    product.variants = [...product.variants];
     variant.name = name ?? variant.name;
     variant.description = description ?? variant.description;
     variant.images = images ?? variant.images;
