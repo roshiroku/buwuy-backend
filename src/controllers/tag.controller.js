@@ -44,7 +44,7 @@ export async function getTag(req, res) {
 export async function updateTag(req, res) {
   try {
     const { name } = req.body;
-    let tag = await Tag.findById(req.params.id);
+    const tag = await Tag.findById(req.params.id);
 
     if (!tag) {
       return res.status(404).json({ message: 'Tag not found' });
