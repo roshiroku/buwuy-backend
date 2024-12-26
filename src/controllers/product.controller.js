@@ -3,10 +3,10 @@ import Product from '../models/Product.js';
 import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 
 function handleUploads(req) {
-  const { images } = req.body;
+  const { images = [] } = req.body;
   const { files = [] } = req;
   let index = 0;
-  images?.forEach((image) => image.src ||= normalizeFilePath(files[index++]));
+  images.forEach((image) => image.src ||= normalizeFilePath(files[index++]));
   while (index < files.length) {
     deleteFile(files[index++]);
   }
@@ -17,7 +17,7 @@ function handleUploads(req) {
 export async function createProduct(req, res) {
   try {
     handleUploads(req);
-    const { name, description, price, stock, images, category, tags } = req.body;
+    const { name, description, category, price, stock, images = [], tags = [] } = req.body;
 
     const product = await Product.create({
       name,
@@ -76,7 +76,7 @@ export async function getProduct(req, res) {
 export async function updateProduct(req, res) {
   try {
     handleUploads(req);
-    const { name, description, price, stock, images, category, tags } = req.body;
+    const { name, description, category, price, stock, images = [], tags = [] } = req.body;
     const product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -121,7 +121,7 @@ export async function deleteProduct(req, res) {
 export async function createVariant(req, res) {
   try {
     handleUploads(req);
-    const { name, description, images, price, stock } = req.body;
+    const { name, description, images = [], price, stock } = req.body;
     const variant = { name, description, images, price, stock };
     const product = await Product.findById(req.params.id);
 
@@ -145,7 +145,7 @@ export async function createVariant(req, res) {
 export async function updateVariant(req, res) {
   try {
     handleUploads(req);
-    const { name, description, images, price, stock } = req.body;
+    const { name, description, images = [], price, stock } = req.body;
     const product = await Product.findById(req.params.id);
     const variant = product && product.variants[req.params.variant];
 

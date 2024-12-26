@@ -11,7 +11,6 @@ import {
   deleteVariant
 } from '../controllers/product.controller.js';
 import { uploadImage } from '../middleware/upload.middleware.js';
-import { jsonFormData } from '../middleware/formData.middleware.js';
 
 const router = Router();
 
@@ -22,8 +21,7 @@ router.post(
   '/',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products').array('imageFiles', 10),
-  jsonFormData('images', 'tags'),
+  uploadImage('uploads/products').array('imageFiles[]', 10),
   createProduct
 );
 
@@ -44,8 +42,7 @@ router.put(
   '/:id',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products').array('imageFiles', 10),
-  jsonFormData('images', 'tags'),
+  uploadImage('uploads/products').array('imageFiles[]', 10),
   updateProduct
 );
 
@@ -61,8 +58,7 @@ router.post(
   '/:id/variants',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products/variants').array('imageFiles', 10),
-  jsonFormData('images'),
+  uploadImage('uploads/products/variants').array('imageFiles[]', 10),
   createVariant
 );
 
@@ -73,8 +69,7 @@ router.put(
   '/:id/variants/:variant',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products/variants').array('imageFiles', 10),
-  jsonFormData('images'),
+  uploadImage('uploads/products/variants').array('imageFiles[]', 10),
   updateVariant
 );
 
