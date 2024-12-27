@@ -8,8 +8,7 @@ const imageSchema = new Schema({
     type: String,
     required: true
   },
-  alt: String,
-  description: String
+  alt: String
 }, { _id: false });
 
 const variantSchema = new Schema({
@@ -63,7 +62,6 @@ const productSchema = new Schema({
 slugifyProp(productSchema);
 fileProp(productSchema, 'images.src');
 fileProp(productSchema, 'variants.images.src');
-// fileProp(imageSchema, 'src');
 
 productSchema.pre('insertMany', async function (next, docs) {
   const categories = await Category.find();
