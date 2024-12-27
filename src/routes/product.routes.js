@@ -21,7 +21,7 @@ router.post(
   '/',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products').array('imageFiles[]', 10),
+  uploadImage('uploads/products').any(),
   createProduct
 );
 
@@ -42,7 +42,7 @@ router.put(
   '/:id',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products').array('imageFiles[]', 10),
+  uploadImage('uploads/products').any(),
   updateProduct
 );
 
@@ -58,7 +58,7 @@ router.post(
   '/:id/variants',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products/variants').array('imageFiles[]', 10),
+  uploadImage('uploads/products/variants').any(),
   createVariant
 );
 
@@ -69,7 +69,7 @@ router.put(
   '/:id/variants/:variant',
   protect,
   authorize('admin', 'moderator'),
-  uploadImage('uploads/products/variants').array('imageFiles[]', 10),
+  uploadImage('uploads/products/variants').any(),
   updateVariant
 );
 

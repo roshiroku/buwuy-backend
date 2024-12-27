@@ -5,11 +5,23 @@ import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 function handleUploads(req) {
   const { images = [] } = req.body;
   const { files = [] } = req;
-  let index = 0;
-  images.forEach((image) => image.src ||= normalizeFilePath(files[index++]));
-  while (index < files.length) {
-    deleteFile(files[index++]);
+
+  images.forEach((image, i) => {
+    if (!image.src) {
+      const index = files.findIndex(({ fieldname }) => {
+        return fieldname.match(new RegExp(`images\\[${i}\\]\\[src\\]`));
+      });
+      if (index > -1) {
+        image.src = normalizeFilePath(files[index]);
+        files.splice(index, 1);
+      }
+    }
+  });
+
+  while (files.length) {
+    deleteFile(files.pop());
   }
+
   return { images };
 }
 
