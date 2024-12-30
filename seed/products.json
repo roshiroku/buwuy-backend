@@ -1,167 +1,794 @@
 [
   {
-    "name": "Premium Garden Shovel",
-    "description": "A durable and ergonomic shovel perfect for all your gardening tasks.",
+    "name": "Classic Crane",
+    "description": "An iconic symbol of peace and hope, this handcrafted crane offers timeless elegance and a must-have for any origami collection.",
+    "byline": "A timeless symbol of peace",
     "images": [
       {
-        "src": "https://example.com/images/products/garden-shovel-1.jpg",
-        "alt": "Premium Garden Shovel Front View",
-        "description": "Front view of the premium garden shovel."
+        "src": "/uploads/products/classic-crane-01.webp",
+        "alt": "Classic crane front view"
       },
       {
-        "src": "https://example.com/images/products/garden-shovel-2.jpg",
-        "alt": "Premium Garden Shovel Side View",
-        "description": "Side view showcasing the ergonomic handle."
-      }
-    ],
-    "price": 29.99,
-    "stock": 150,
-    "variants": [
-      {
-        "name": "Standard",
-        "description": "Standard length handle.",
-        "images": [
-          {
-            "src": "https://example.com/images/products/garden-shovel-variant-standard.jpg",
-            "alt": "Standard Variant",
-            "description": "Standard variant with regular handle length."
-          }
-        ],
-        "price": 29.99,
-        "stock": 100
+        "src": "/uploads/products/classic-crane-02.webp",
+        "alt": "Classic crane side view"
       },
       {
-        "name": "Extended Handle",
-        "description": "Longer handle for added reach.",
-        "images": [
-          {
-            "src": "https://example.com/images/products/garden-shovel-variant-extended.jpg",
-            "alt": "Extended Handle Variant",
-            "description": "Variant with an extended handle for better leverage."
-          }
-        ],
-        "price": 34.99,
-        "stock": 50
+        "src": "/uploads/products/classic-crane-03.webp",
+        "alt": "Classic crane top view"
       }
     ],
-    "category": "gardening-tools",
+    "category": "traditional",
     "tags": [
-      "tools",
-      "garden-decor"
-    ]
+      "crane",
+      "traditional",
+      "beginner"
+    ],
+    "price": 3.99,
+    "stock": 50
   },
   {
-    "name": "Deluxe Outdoor Patio Set",
-    "description": "Create a comfortable outdoor living space with this deluxe patio set.",
+    "name": "Samurai Helmet",
+    "description": "A carefully folded samurai helmet (Kabuto) that adds a touch of historic charm to any shelf or desk.",
+    "byline": "Festival favorite for kids and collectors",
     "images": [
       {
-        "src": "https://example.com/images/products/patio-set-1.jpg",
-        "alt": "Deluxe Outdoor Patio Set",
-        "description": "Complete patio set with table and chairs."
+        "src": "/uploads/products/samurai-helmet-01.webp",
+        "alt": "Samurai helmet style origami"
       }
     ],
-    "price": 499.99,
-    "stock": 30,
-    "variants": [
-      {
-        "name": "Standard",
-        "description": "Includes 4 chairs and 1 table.",
-        "images": [
-          {
-            "src": "https://example.com/images/products/patio-set-variant-standard.jpg",
-            "alt": "Standard Patio Set",
-            "description": "Standard variant with 4 chairs and 1 table."
-          }
-        ],
-        "price": 499.99,
-        "stock": 20
-      },
-      {
-        "name": "Extended",
-        "description": "Includes 6 chairs and 1 table.",
-        "images": [
-          {
-            "src": "https://example.com/images/products/patio-set-variant-extended.jpg",
-            "alt": "Extended Patio Set",
-            "description": "Extended variant with 6 chairs and 1 table."
-          }
-        ],
-        "price": 599.99,
-        "stock": 10
-      }
-    ],
-    "category": "outdoor-furniture",
+    "category": "traditional",
     "tags": [
-      "outdoor-furniture",
-      "garden-decor"
-    ]
+      "traditional",
+      "decor",
+      "beginner"
+    ],
+    "price": 2.49,
+    "stock": 30
   },
   {
-    "name": "Organic Tomato Seeds",
-    "description": "Grow your own delicious and organic tomatoes with our high-yield seeds.",
+    "name": "Paper Balloon (Kami Fusen)",
+    "description": "A delightful, airy paper balloon that looks charming hung around the home or used as festive decor.",
+    "byline": "Inflatable origami fun",
     "images": [
       {
-        "src": "https://example.com/images/products/tomato-seeds.jpg",
-        "alt": "Organic Tomato Seeds",
-        "description": "Packet of organic tomato seeds."
+        "src": "/uploads/products/paper-balloon-01.webp",
+        "alt": "A colorful balloon style origami"
       }
+    ],
+    "category": "traditional",
+    "tags": [
+      "action",
+      "traditional",
+      "beginner"
+    ],
+    "price": 4.99,
+    "stock": 40
+  },
+  {
+    "name": "Jumping Frog",
+    "description": "An adorable frog figurine that can spring into action with a gentle tap, bringing playful energy wherever it goes.",
+    "byline": "Fun hopping companion",
+    "images": [
+      {
+        "src": "/uploads/products/jumping-frog-01.webp",
+        "alt": "Green origami frog from the side"
+      },
+      {
+        "src": "/uploads/products/jumping-frog-02.webp",
+        "alt": "Green origami frog from the top"
+      }
+    ],
+    "category": "traditional",
+    "tags": [
+      "action",
+      "traditional",
+      "beginner"
+    ],
+    "price": 3.49,
+    "stock": 25
+  },
+  {
+    "name": "Kabuto (Deluxe Variation)",
+    "description": "This elaborately folded Kabuto features refined details and multiple layers, a must-have for collectors seeking authenticity.",
+    "byline": "An advanced twist on the classic Kabuto",
+    "images": [
+      {
+        "src": "/uploads/products/kabuto-01.webp",
+        "alt": "Intricate Kabuto origami helmet"
+      }
+    ],
+    "category": "traditional",
+    "tags": [
+      "decor",
+      "traditional",
+      "intermediate"
+    ],
+    "price": 5.99,
+    "stock": 15
+  },
+  {
+    "name": "Paper Fan",
+    "description": "A handcrafted paper fan designed for both style and function, perfect for warm days or decorative displays.",
+    "byline": "Stay cool the traditional way",
+    "images": [
+      {
+        "src": "/uploads/products/paper-fan-01.webp",
+        "alt": "Paper fan with a simple fold"
+      },
+      {
+        "src": "/uploads/products/paper-fan-02.webp",
+        "alt": "Paper fan fully expanded"
+      }
+    ],
+    "category": "traditional",
+    "tags": [
+      "decor",
+      "traditional",
+      "beginner"
+    ],
+    "price": 2.99,
+    "stock": 50
+  },
+  {
+    "name": "Origami Box",
+    "description": "A sturdy, single-sheet folded box that’s ideal for storing keepsakes or presenting small gifts.",
+    "byline": "Practical storage meets paper craft",
+    "images": [
+      {
+        "src": "/uploads/products/origami-box-01.webp",
+        "alt": "Compact origami box in pastel colors"
+      }
+    ],
+    "category": "traditional",
+    "tags": [
+      "box",
+      "traditional",
+      "beginner"
+    ],
+    "price": 3.99,
+    "stock": 60
+  },
+  {
+    "name": "Paper Crane Variation",
+    "description": "A refined twist on the classic crane, featuring elegant decorative folds in the wings for added charm.",
+    "byline": "A stylish twist on the classic crane",
+    "images": [
+      {
+        "src": "/uploads/products/paper-crane-variation-01.webp",
+        "alt": "Decorative crane with flair"
+      },
+      {
+        "src": "/uploads/products/paper-crane-variation-02.webp",
+        "alt": "Ornate crane from another angle"
+      }
+    ],
+    "category": "traditional",
+    "tags": [
+      "crane",
+      "traditional",
+      "intermediate"
+    ],
+    "price": 4.49,
+    "stock": 25
+  },
+  {
+    "name": "Flower Kusudama",
+    "description": "A stunning ornament made by assembling multiple flower-like units into a cheerful sphere.",
+    "byline": "A blossoming sphere of paper",
+    "images": [
+      {
+        "src": "/uploads/products/flower-kusudama-01.webp",
+        "alt": "Vibrant paper flower kusudama"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "flower",
+      "decor",
+      "intermediate"
+    ],
+    "price": 8.99,
+    "stock": 20
+  },
+  {
+    "name": "Star Kusudama",
+    "description": "An eye-catching, star-themed kusudama that adds sparkle to any setting with its intricate geometry.",
+    "byline": "Glittering star-shaped sphere",
+    "images": [
+      {
+        "src": "/uploads/products/star-kusudama-01.webp",
+        "alt": "Star kusudama front view"
+      },
+      {
+        "src": "/uploads/products/star-kusudama-02.webp",
+        "alt": "Star kusudama side view"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "star",
+      "advanced",
+      "3d"
+    ],
+    "price": 10.99,
+    "stock": 10
+  },
+  {
+    "name": "Daisy Kusudama",
+    "description": "Bright and uplifting, this floral kusudama features daisy-inspired petals that radiate cheerful energy.",
+    "byline": "Bright floral orbs",
+    "images": [
+      {
+        "src": "/uploads/products/daisy-kusudama-01.webp",
+        "alt": "Light pastel daisy kusudama"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "flower",
+      "gift",
+      "intermediate"
+    ],
+    "price": 9.49,
+    "stock": 15
+  },
+  {
+    "name": "Christmas Ornament Kusudama",
+    "description": "A festive ornament kusudama with seasonal red and green units, bringing holiday spirit to your decor.",
+    "byline": "Holiday delight in kusudama form",
+    "images": [
+      {
+        "src": "/uploads/products/christmas-ornament-kusudama-01.webp",
+        "alt": "Red-and-green Christmas kusudama"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "christmas",
+      "decor",
+      "advanced"
+    ],
+    "price": 12.99,
+    "stock": 12
+  },
+  {
+    "name": "Sakura Blossom Kusudama",
+    "description": "Inspired by cherry blossoms, this kusudama captures the delicate elegance and freshness of spring.",
+    "byline": "Springtime blossoms in 3D",
+    "images": [
+      {
+        "src": "/uploads/products/sakura-blossom-kusudama-01.webp",
+        "alt": "Pink sakura blossom kusudama"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "flower",
+      "geometric",
+      "advanced"
+    ],
+    "price": 11.99,
+    "stock": 8
+  },
+  {
+    "name": "Heart Kusudama",
+    "description": "A delightful kusudama where each module is folded into a subtle heart shape, perfect for loved ones.",
+    "byline": "Sphere full of hearts",
+    "images": [
+      {
+        "src": "/uploads/products/heart-kusudama-01.webp",
+        "alt": "Romantic heart kusudama sphere"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "heart",
+      "gift",
+      "intermediate"
     ],
     "price": 9.99,
-    "stock": 500,
-    "variants": [
-      {
-        "name": "Cherry Tomatoes",
-        "description": "Sweet and juicy cherry tomatoes.",
-        "images": [],
-        "price": 9.99,
-        "stock": 300
-      },
-      {
-        "name": "Beefsteak Tomatoes",
-        "description": "Large and flavorful beefsteak tomatoes.",
-        "images": [],
-        "price": 11.99,
-        "stock": 200
-      }
-    ],
-    "category": "plants-seeds",
-    "tags": [
-      "plants",
-      "seeds"
-    ]
+    "stock": 15
   },
   {
-    "name": "Solar-Powered Garden Lights",
-    "description": "Illuminate your garden paths with these eco-friendly solar-powered lights.",
+    "name": "Modular Floral Sphere",
+    "description": "A lively arrangement of petal-shaped units forming a burst of color, perfect for brightening any room.",
+    "byline": "Petal-inspired Kusudama design",
     "images": [
       {
-        "src": "https://example.com/images/products/garden-lights-1.jpg",
-        "alt": "Solar Garden Lights",
-        "description": "Set of solar-powered garden lights installed along a path."
+        "src": "/uploads/products/modular-floral-sphere-01.webp",
+        "alt": "Colorful modular sphere with floral design"
       }
     ],
-    "price": 49.99,
-    "stock": 100,
-    "variants": [
+    "category": "kusudama",
+    "tags": [
+      "modular",
+      "flower",
+      "advanced"
+    ],
+    "price": 13.49,
+    "stock": 7
+  },
+  {
+    "name": "Geometric Petal Ball",
+    "description": "Sleek geometry meets graceful petals in this kusudama, offering a balanced blend of modern style and organic warmth.",
+    "byline": "Modern geometry meets floral motifs",
+    "images": [
       {
-        "name": "Set of 6",
-        "description": "Includes 6 garden lights.",
-        "images": [],
-        "price": 49.99,
-        "stock": 60
+        "src": "/uploads/products/geometric-petal-ball-01.webp",
+        "alt": "Geometric petal ball with symmetrical folds"
+      }
+    ],
+    "category": "kusudama",
+    "tags": [
+      "geometric",
+      "3d",
+      "intermediate"
+    ],
+    "price": 8.49,
+    "stock": 18
+  },
+  {
+    "name": "Sonobe Cube",
+    "description": "A classic modular piece crafted from Sonobe units, forming a perfect cube that’s fun to assemble.",
+    "byline": "Simple modular geometry",
+    "images": [
+      {
+        "src": "/uploads/products/sonobe-cube-01.webp",
+        "alt": "Simple sonobe cube in bright colors"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "modular",
+      "geometric",
+      "beginner"
+    ],
+    "price": 4.99,
+    "stock": 35
+  },
+  {
+    "name": "Sonobe Icosahedron",
+    "description": "Twenty Sonobe units come together to form a mesmerizing icosahedron, great for geometry lovers.",
+    "byline": "A 20-panel geometric feat",
+    "images": [
+      {
+        "src": "/uploads/products/sonobe-icosahedron-01.webp",
+        "alt": "Complex sonobe icosahedron in vibrant hues"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "modular",
+      "geometric",
+      "intermediate"
+    ],
+    "price": 6.99,
+    "stock": 22
+  },
+  {
+    "name": "Alpha Star",
+    "description": "A radiant star made from interlocking panels, reflecting light beautifully when hung near windows.",
+    "byline": "Radiant star from interlocking parts",
+    "images": [
+      {
+        "src": "/uploads/products/alpha-star-01.webp",
+        "alt": "Alpha star with interlocking points"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "modular",
+      "star",
+      "intermediate"
+    ],
+    "price": 7.99,
+    "stock": 18
+  },
+  {
+    "name": "Omega Cube",
+    "description": "An advanced modular origami design that refines the classic cube into a more complex, eye-catching piece.",
+    "byline": "A twist on the classic cube",
+    "images": [
+      {
+        "src": "/uploads/products/omega-cube-01.webp",
+        "alt": "Intricate multi-layer omega cube"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "modular",
+      "advanced",
+      "geometric"
+    ],
+    "price": 8.49,
+    "stock": 10
+  },
+  {
+    "name": "Triangular Box",
+    "description": "A handy triangular box with interlocking sides, perfect for storing small knickknacks or gifting sweets.",
+    "byline": "Three sides of storage fun",
+    "images": [
+      {
+        "src": "/uploads/products/triangular-box-01.webp",
+        "alt": "Three-sided modular box"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "box",
+      "modular",
+      "intermediate"
+    ],
+    "price": 5.99,
+    "stock": 25
+  },
+  {
+    "name": "Hexahedron Puzzle",
+    "description": "An engaging puzzle that challenges you to form a stable hexahedron from folded units, perfect for advanced enthusiasts.",
+    "byline": "A puzzle in paper form",
+    "images": [
+      {
+        "src": "/uploads/products/hexahedron-puzzle-01.webp",
+        "alt": "Challenging hexahedron puzzle in bold colors"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "modular",
+      "geometric",
+      "advanced"
+    ],
+    "price": 9.99,
+    "stock": 10
+  },
+  {
+    "name": "Modular Photo Frame",
+    "description": "A customizable, interlocking photo frame that expands with additional modules, adding flair to cherished memories.",
+    "byline": "Frame memories the modular way",
+    "images": [
+      {
+        "src": "/uploads/products/modular-photo-frame-01.webp",
+        "alt": "Paper frame featuring a modular design"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "decor",
+      "gift",
+      "modular"
+    ],
+    "price": 6.49,
+    "stock": 30
+  },
+  {
+    "name": "Peace Crane Modular Wreath",
+    "description": "Crane modules arranged in a ring, this wreath brings serenity and unity to any entryway or mantle.",
+    "byline": "Wreath of interlinked cranes",
+    "images": [
+      {
+        "src": "/uploads/products/peace-crane-modular-wreath-01.webp",
+        "alt": "Circular wreath of interlinked cranes"
+      }
+    ],
+    "category": "modular",
+    "tags": [
+      "crane",
+      "modular",
+      "decor"
+    ],
+    "price": 8.49,
+    "stock": 12
+  },
+  {
+    "name": "Hydrangea Tessellation",
+    "description": "A breathtaking pattern that mimics clusters of hydrangea blooms, showcasing delicate folds across the sheet.",
+    "byline": "Delicate floral repeats",
+    "images": [
+      {
+        "src": "/uploads/products/hydrangea-tessellation-01.webp",
+        "alt": "Multi-petal hydrangea tessellation"
       },
       {
-        "name": "Set of 12",
-        "description": "Includes 12 garden lights.",
-        "images": [],
-        "price": 89.99,
-        "stock": 40
+        "src": "/uploads/products/hydrangea-tessellation-02.webp",
+        "alt": "Close-up of hydrangea tessellation folds"
       }
     ],
-    "category": "garden-decor",
+    "category": "tessellation",
     "tags": [
-      "garden-decor",
-      "outdoor-furniture"
-    ]
+      "flora",
+      "geometric",
+      "advanced"
+    ],
+    "price": 12.99,
+    "stock": 8
+  },
+  {
+    "name": "Twisted Hexagon Fold",
+    "description": "Hypnotic and dynamic, this hexagonal tessellation appears to twist before your eyes, adding a modern flair.",
+    "byline": "A mind-bending hexagon pattern",
+    "images": [
+      {
+        "src": "/uploads/products/twisted-hexagon-fold-01.webp",
+        "alt": "Rotating hexagon pattern in fold"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "geometric",
+      "intermediate",
+      "modern"
+    ],
+    "price": 11.49,
+    "stock": 12
+  },
+  {
+    "name": "Square Grid Tessellation",
+    "description": "A simpler design using square pleats, ideal for beginners seeking a subtle 3D texture in their origami.",
+    "byline": "Simple and perfect for beginners",
+    "images": [
+      {
+        "src": "/uploads/products/square-grid-tessellation-01.webp",
+        "alt": "Neat square pleats forming a grid"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "geometric",
+      "beginner",
+      "modern"
+    ],
+    "price": 5.49,
+    "stock": 20
+  },
+  {
+    "name": "Waterbomb Tessellation",
+    "description": "A vibrant mosaic of interlocking waterbomb folds, creating a tactile, bumpy surface that draws the eye.",
+    "byline": "Bubbly interlocking textures",
+    "images": [
+      {
+        "src": "/uploads/products/waterbomb-tessellation-01.webp",
+        "alt": "Bubbly repeating waterbomb bases"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "geometric",
+      "intermediate",
+      "modern"
+    ],
+    "price": 7.99,
+    "stock": 18
+  },
+  {
+    "name": "Clover Tessellation",
+    "description": "Soft, rounded leaves that repeat across the page, this design brings a touch of natural charm to any setting.",
+    "byline": "Four-leaf pattern repeated",
+    "images": [
+      {
+        "src": "/uploads/products/clover-tessellation-01.webp",
+        "alt": "Repeating four-leaf clover shape"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "flora",
+      "advanced",
+      "geometric"
+    ],
+    "price": 13.49,
+    "stock": 5
+  },
+  {
+    "name": "Pleated Rose Tessellation",
+    "description": "Rose-shaped pleats that bloom gracefully, offering a sophisticated and rewarding challenge for experienced folders.",
+    "byline": "Rosy folds for the ambitious",
+    "images": [
+      {
+        "src": "/uploads/products/pleated-rose-tessellation-01.webp",
+        "alt": "Rose-like pleats forming a floral pattern"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "flower",
+      "advanced",
+      "modern"
+    ],
+    "price": 14.49,
+    "stock": 6
+  },
+  {
+    "name": "Sunburst Corrugation",
+    "description": "A radial corrugation design that catches light beautifully, evoking the brilliance of a rising sun.",
+    "byline": "Bursting rays of pleats",
+    "images": [
+      {
+        "src": "/uploads/products/sunburst-corrugation-01.webp",
+        "alt": "Radiating corrugated lines in a sunburst pattern"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "star",
+      "intermediate",
+      "geometric"
+    ],
+    "price": 9.99,
+    "stock": 10
+  },
+  {
+    "name": "Ripple Pattern Fold",
+    "description": "Undulating wave-like pleats move across the paper, adding a dynamic, contemporary style to this tessellation.",
+    "byline": "Waves of mesmerizing folds",
+    "images": [
+      {
+        "src": "/uploads/products/ripple-pattern-fold-01.webp",
+        "alt": "Wavy pleats in a ripple arrangement"
+      },
+      {
+        "src": "/uploads/products/ripple-pattern-fold-02.webp",
+        "alt": "Close-up of the ripple fold texture"
+      }
+    ],
+    "category": "tessellation",
+    "tags": [
+      "modern",
+      "advanced",
+      "decor"
+    ],
+    "price": 10.99,
+    "stock": 9
+  },
+  {
+    "name": "Origami Dragon",
+    "description": "A fierce, mythical creation with delicate wings and a curling tail, perfect for showcasing expert folding skills.",
+    "byline": "Mythical beast in paper form",
+    "images": [
+      {
+        "src": "/uploads/products/origami-dragon-01.webp",
+        "alt": "Detailed origami dragon with outspread wings"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "dragon",
+      "advanced",
+      "3d"
+    ],
+    "price": 12.99,
+    "stock": 8
+  },
+  {
+    "name": "Butterfly Delight",
+    "description": "A colorful butterfly piece that brightens any display, capturing the whimsical spirit of these gentle creatures.",
+    "byline": "Graceful flutter in folded paper",
+    "images": [
+      {
+        "src": "/uploads/products/butterfly-delight-01.webp",
+        "alt": "Vibrant butterfly origami with wings spread"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "butterfly",
+      "beginner",
+      "decor"
+    ],
+    "price": 4.99,
+    "stock": 25
+  },
+  {
+    "name": "Origami Turtle",
+    "description": "An adorable origami turtle complete with a distinctive shell pattern, perfect for displaying flat or standing upright.",
+    "byline": "Shelled wonder of the sea",
+    "images": [
+      {
+        "src": "/uploads/products/origami-turtle-01.webp",
+        "alt": "Paper turtle with a detailed shell"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "geometric",
+      "intermediate",
+      "3d"
+    ],
+    "price": 7.99,
+    "stock": 12
+  },
+  {
+    "name": "Koi Fish",
+    "description": "An elegant fish model with flowing fins, celebrating the beauty and grace of the koi in traditional origami style.",
+    "byline": "Graceful aquatic creature",
+    "images": [
+      {
+        "src": "/uploads/products/koi-fish-01.webp",
+        "alt": "Koi fish with curved fins and tail"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "advanced",
+      "3d",
+      "modern"
+    ],
+    "price": 9.99,
+    "stock": 10
+  },
+  {
+    "name": "Panda Bear",
+    "description": "A delightful two-toned figure with a round belly and charming expression, sure to please panda lovers of all ages.",
+    "byline": "Cute and cuddly two-tone bear",
+    "images": [
+      {
+        "src": "/uploads/products/panda-bear-01.webp",
+        "alt": "Black and white paper panda bear"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "beginner",
+      "3d",
+      "gift"
+    ],
+    "price": 5.99,
+    "stock": 20
+  },
+  {
+    "name": "Elephant Parade",
+    "description": "Celebrate the majestic elephant with this carefully crafted piece, complete with extended trunk and expressive ears.",
+    "byline": "Majestic trunk and flapping ears",
+    "images": [
+      {
+        "src": "/uploads/products/elephant-parade-01.webp",
+        "alt": "Origami elephant with a raised trunk"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "intermediate",
+      "decor",
+      "3d"
+    ],
+    "price": 7.49,
+    "stock": 15
+  },
+  {
+    "name": "Giraffe Silhouette",
+    "description": "A tall and graceful design capturing the essence of a giraffe’s slender form, perfect for safari-themed decor.",
+    "byline": "Long-necked safari beauty",
+    "images": [
+      {
+        "src": "/uploads/products/giraffe-silhouette-01.webp",
+        "alt": "Long-necked giraffe origami"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "advanced",
+      "modern",
+      "3d"
+    ],
+    "price": 8.99,
+    "stock": 8
+  },
+  {
+    "name": "Fox Head",
+    "description": "An easy-to-display fox head featuring large ears and pointy muzzle, adding a playful woodland charm to your space.",
+    "byline": "Foxy fun for all ages",
+    "images": [
+      {
+        "src": "/uploads/products/fox-head-01.webp",
+        "alt": "Paper fox head with prominent ears"
+      }
+    ],
+    "category": "animal-origami",
+    "tags": [
+      "beginner",
+      "decor",
+      "3d"
+    ],
+    "price": 3.99,
+    "stock": 30
   }
 ]

@@ -1,22 +1,32 @@
 [
   {
-    "name": "Gardening Tools",
-    "image": "https://example.com/images/categories/gardening-tools.jpg",
-    "description": "Essential tools for all your gardening needs."
+    "name": "Traditional",
+    "description": "Traditional origami designs are timeless. From the classic crane to the iconic samurai helmet, these models have been passed down through centuries of paper-folding tradition.",
+    "byline": "Classic, timeless Japanese paper folding",
+    "image": "/uploads/categories/traditional.webp"
   },
   {
-    "name": "Outdoor Furniture",
-    "image": "https://example.com/images/categories/outdoor-furniture.jpg",
-    "description": "Comfortable and stylish furniture for your outdoor spaces."
+    "name": "Kusudama",
+    "description": "Kusudama origami involves sewing or gluing multiple folded units together to form a decorative sphere. Originally used for incense and potpourri, Kusudama creations now serve as ornamental pieces and thoughtful gifts.",
+    "byline": "Spherical wonders made from multiple folded units",
+    "image": "/uploads/categories/kusudama.webp"
   },
   {
-    "name": "Plants & Seeds",
-    "image": "https://example.com/images/categories/plants-seeds.jpg",
-    "description": "A variety of plants and seeds to grow your garden."
+    "name": "Modular",
+    "description": "Modular origami consists of folding multiple identical units and assembling them—usually without glue—to form eye-catching geometric shapes. Perfect for experimenting with color and pattern combinations.",
+    "byline": "Multi-piece wonders for bold creative expressions",
+    "image": "/uploads/categories/modular.webp"
   },
   {
-    "name": "Garden Decor",
-    "image": "https://example.com/images/categories/garden-decor.jpg",
-    "description": "Beautify your garden with our selection of decor items."
+    "name": "Tessellation",
+    "description": "Tessellation origami transforms a single sheet of paper into repeating geometric patterns. These mesmerizing, interlocking designs challenge the imagination and paper-folding prowess.",
+    "byline": "Hypnotic geometric patterns folded from one sheet",
+    "image": "/uploads/categories/tessellation.webp"
+  },
+  {
+    "name": "Animal Origami",
+    "description": "From dragons to butterflies, animal-themed origami brings wildlife to life through elegant folds. Perfect for enthusiasts of all levels—children and adults alike!",
+    "byline": "Bring wildlife to life with folds",
+    "image": "/uploads/categories/animal-origami.webp"
   }
 ]

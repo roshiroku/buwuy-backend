@@ -1,17 +1,62 @@
 [
   {
-    "name": "Plants"
+    "name": "Crane"
   },
   {
-    "name": "Tools"
+    "name": "Flora"
   },
   {
-    "name": "Outdoor Furniture"
+    "name": "Dragon"
   },
   {
-    "name": "Garden Decor"
+    "name": "Butterfly"
   },
   {
-    "name": "Seeds"
+    "name": "Decor"
+  },
+  {
+    "name": "Flower"
+  },
+  {
+    "name": "Box"
+  },
+  {
+    "name": "Geometric"
+  },
+  {
+    "name": "Beginner"
+  },
+  {
+    "name": "Intermediate"
+  },
+  {
+    "name": "Advanced"
+  },
+  {
+    "name": "Action"
+  },
+  {
+    "name": "Modular"
+  },
+  {
+    "name": "3D"
+  },
+  {
+    "name": "Traditional"
+  },
+  {
+    "name": "Christmas"
+  },
+  {
+    "name": "Star"
+  },
+  {
+    "name": "Heart"
+  },
+  {
+    "name": "Gift"
+  },
+  {
+    "name": "Modern"
   }
 ]
