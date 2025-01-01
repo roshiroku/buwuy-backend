@@ -49,11 +49,22 @@ export async function finishCheckout(req, res) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
+    const products = await Product.find({ _id: order.items.map(({ product }) => product) });
+    const prodMap = Object.fromEntries(products.map((prod) => [prod._id, prod]));
+
+    if (order.items.some(({ product: id, amount }) => (prodMap[id]?.stock || 0) < amount)) {
+      throw new Error('Checkout Error: Out of stock');
+    }
+
+    await Promise.all(order.items.map(({ product: id, amount }) => {
+      const product = prodMap[id];
+      product.sold += amount;
+      product.stock -= amount;
+      return product.save();
+    }));
+
     order.status = 'pending';
     await order.save();
-
-    /** @todo reduce products stock X_X */
-    /** @todo increase product sales */
 
     res.json(order);
   } catch (err) {

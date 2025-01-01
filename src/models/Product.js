@@ -4,18 +4,12 @@ import Tag from './Tag.js';
 import { fileProp, slugifyProp } from '../utils/schema.utils.js';
 
 const imageSchema = new Schema({
-  src: {
-    type: String,
-    required: true
-  },
+  src: { type: String, required: true },
   alt: String
 }, { _id: false });
 
 const variantSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
+  name: { type: String, required: true },
   description: String,
   images: [imageSchema],
   price: Number,
@@ -23,44 +17,17 @@ const variantSchema = new Schema({
 }, { _id: false });
 
 const productSchema = new Schema({
-  name: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  slug: {
-    type: String,
-    index: true,
-    unique: true,
-    required: true
-  },
-  byline: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
+  name: { type: String, unique: true, required: true },
+  slug: { type: String, index: true, unique: true, required: true },
+  byline: { type: String, required: true },
+  description: { type: String, required: true },
   images: [imageSchema],
-  price: {
-    type: Number,
-    required: true
-  },
-  stock: {
-    type: Number,
-    default: 0
-  },
+  price: { type: Number, required: true },
+  stock: { type: Number, default: 0 },
+  sold: { type: Number, default: 0 },
   variants: [variantSchema],
-  category: {
-    type: String,
-    ref: 'Category',
-    index: true
-  },
-  tags: [{
-    type: String,
-    ref: 'Tag'
-  }]
+  category: { type: String, ref: 'Category', index: true },
+  tags: [{ type: String, ref: 'Tag' }]
 }, { timestamps: true });
 
 slugifyProp(productSchema);
