@@ -54,16 +54,45 @@ export async function createProduct(req, res) {
 // Get Products
 export async function getProducts(req, res) {
   try {
-    const { skip, limit, categorySlug, ...params } = req.query;
+    const { skip, limit, sort, categorySlug, ...params } = req.query;
 
     if (categorySlug) {
       const category = await Category.findOne({ slug: categorySlug });
       params.category = [params.category, category?._id].filter(Boolean);
     }
 
-    const products = await Product.find(params).skip(skip).limit(limit);
+    const pipeline = [
+      { $match: params },
+      { $addFields: { category: { $toObjectId: '$category' } } },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'category',
+          foreignField: '_id',
+          as: 'category'
+        }
+      },
+      { $unwind: { path: '$category', preserveNullAndEmptyArrays: true } }
+    ];
 
-    res.json(products);
+    if (sort) {
+      const sortBy = sort.startsWith('-') ? sort.slice(1) : sort;
+      const sortDir = sort.startsWith('-') ? -1 : 1;
+      pipeline.push({
+        $sort: {
+          [sortBy === 'category' ? 'category.name' : sortBy]: sortDir,
+          name: sortDir,
+        }
+      });
+    }
+
+    skip && pipeline.push({ $skip: Number(skip) });
+    limit && pipeline.push({ $limit: Number(limit) });
+
+    const results = await Product.aggregate(pipeline);
+    const count = await Product.countDocuments(params);
+
+    res.json({ results, count });
   } catch (err) {
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
