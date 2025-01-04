@@ -7,6 +7,7 @@ import tagRoutes from './routes/tag.routes.js';
 import productRoutes from './routes/product.routes.js';
 import checkoutRoutes from './routes/checkout.routes.js';
 import orderRoutes from './routes/order.routes.js';
+import userRoutes from './routes/user.routes.js';
 import cartRoutes from './routes/cart.routes.js';
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/tags', tagRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/cart', cartRoutes);
 
 // Error Handling Middleware (Optional)
