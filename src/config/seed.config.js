@@ -5,6 +5,7 @@ import User from '../models/User.js';
 import Tag from '../models/Tag.js';
 import Category from '../models/Category.js';
 import Product from '../models/Product.js';
+import { copyFilesSync } from '../utils/file.utils.js';
 
 const seed = config.has('seed') && config.get('seed') || {};
 const userData = seed.users && JSON.parse(fs.readFileSync(path.resolve(seed.users)));
@@ -13,34 +14,10 @@ const categoryData = seed.categories && JSON.parse(fs.readFileSync(path.resolve(
 const productData = seed.products && JSON.parse(fs.readFileSync(path.resolve(seed.products)));
 const { assets } = seed;
 
-function copyFiles(src, dest) {
-  let isCopying = false;
-
-  if (!fs.existsSync(dest)) {
-    fs.mkdirSync(dest, { recursive: true });
-    isCopying = true;
-  }
-
-  const items = fs.readdirSync(src);
-
-  for (const item of items) {
-    const srcPath = path.join(src, item);
-    const destPath = path.join(dest, item);
-
-    if (fs.statSync(srcPath).isDirectory()) {
-      isCopying ||= copyFiles(srcPath, destPath);
-    } else if (!fs.existsSync(destPath)) {
-      fs.copyFileSync(srcPath, destPath);
-      isCopying = true;
-    }
-  }
-
-  return isCopying;
-}
-
 // Async function to seed data
 export default async function seedData() {
   try {
+    const images = new Set();
     let isSeeding = false;
 
     // Seed Users
@@ -48,6 +25,12 @@ export default async function seedData() {
       isSeeding = true;
       await User.insertMany(userData);
       console.log('Users seeded');
+
+      userData.forEach((user) => {
+        if (user.avatar?.startsWith('/uploads/')) {
+          images.add(user.avatar.replace('/uploads/', ''));
+        }
+      });
     }
 
     // Seed Tags
@@ -62,6 +45,12 @@ export default async function seedData() {
       isSeeding = true;
       await Category.insertMany(categoryData);
       console.log('Categories seeded');
+
+      categoryData.forEach((category) => {
+        if (category.image?.startsWith('/uploads/')) {
+          images.add(category.image.replace('/uploads/', ''));
+        }
+      });
     }
 
     // Seed Products
@@ -69,14 +58,28 @@ export default async function seedData() {
       isSeeding = true;
       await Product.insertMany(productData);
       console.log('Products seeded');
+
+      productData.forEach(product => {
+        if (Array.isArray(product.images)) {
+          product.images.forEach((image) => {
+            if (image.src?.startsWith('/uploads/')) {
+              images.add(image.src.replace('/uploads/', ''));
+            }
+          });
+        }
+      });
     }
 
     if (isSeeding) {
       console.log('All data seeded successfully!');
     }
 
-    if (assets && copyFiles(path.resolve(assets), path.resolve('uploads'))) {
-      console.log('Assets copied successfully!');
+    if (assets && images.size > 0) {
+      const sourceDir = path.resolve(assets);
+      const targetDir = path.resolve('uploads');
+
+      copyFilesSync(Array.from(images), sourceDir, targetDir);
+      console.log('Referenced assets copied successfully!');
     }
   } catch (error) {
     console.error('Error seeding data:', error);
