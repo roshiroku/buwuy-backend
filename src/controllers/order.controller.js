@@ -1,47 +1,42 @@
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
+import { omit } from '../utils/object.utils.js';
+
+async function normalizeOrderItems(input) {
+  const products = Object.fromEntries((await Product.find({
+    _id: input.map(({ product }) => product)
+  })).map((product) => [product._id, product]));
+  const items = {};
+
+  for (const { product: id, name, price, amount } of input) {
+    const product = products[id];
+
+    if (!items[id]) {
+      items[id] = {
+        product: id,
+        name: name ?? product.name,
+        price: price ?? product.price,
+        amount: 0
+      };
+    }
+
+    items[id].amount += amount;
+
+    if (items[id].amount < 1) {
+      delete items[id];
+    }
+  }
+
+  return Object.values(items);
+}
 
 // Create Order
 export async function createOrder(req, res) {
-  const { products } = req.body;
+  const { user, contact, address, ...params } = req.body;
 
   try {
-    if (!products || products.length === 0) {
-      return res.status(400).json({ message: 'No products in order' });
-    }
-
-    let totalAmount = 0;
-    const orderProducts = [];
-
-    for (const item of products) {
-      const product = await Product.findById(item.product);
-      if (!product) {
-        return res.status(404).json({ message: `Product not found: ${item.product}` });
-      }
-
-      if (product.stock < item.quantity) {
-        return res.status(400).json({ message: `Insufficient stock for product: ${product.name}` });
-      }
-
-      product.stock -= item.quantity;
-      await product.save();
-
-      const price = product.price * item.quantity;
-      totalAmount += price;
-
-      orderProducts.push({
-        product: product._id,
-        quantity: item.quantity,
-        price,
-      });
-    }
-
-    const order = await Order.create({
-      user: req.user._id,
-      products: orderProducts,
-      totalAmount,
-    });
-
+    const items = normalizeOrderItems(params.items);
+    const order = await Order.create({ user, contact, address, items });
     res.status(201).json(order);
   } catch (err) {
     console.error(err.message);
@@ -52,10 +47,45 @@ export async function createOrder(req, res) {
 // Get All Orders (Admin and Moderator)
 export async function getOrders(req, res) {
   try {
-    const orders = await Order.find()
-      .populate('user', 'name email')
-      .populate('products.product', 'name price');
-    res.json(orders);
+    const { skip, limit, sort, ...params } = req.query;
+
+    const pipeline = [
+      { $match: { ...params } },
+      {
+        $addFields: {
+          'contact.fullName': {
+            $concat: [
+              { $ifNull: ['$contact.name.first', ''] },
+              ' ',
+              { $ifNull: ['$contact.name.last', ''] }
+            ]
+          }
+        }
+      }
+    ];
+
+    if (sort) {
+      const sortBy = sort.startsWith('-') ? sort.slice(1) : sort;
+      const sortDir = sort.startsWith('-') ? -1 : 1;
+      pipeline.push({
+        $sort: {
+          [
+            sortBy === 'name' ? 'contact.fullName' :
+              sortBy === 'email' ? 'contact.email' :
+                sortBy
+          ]: sortDir,
+          _id: sortDir
+        }
+      });
+    }
+
+    skip && pipeline.push({ $skip: Number(skip) });
+    limit && pipeline.push({ $limit: Number(limit) });
+
+    const orders = await Order.aggregate(pipeline);
+    const count = await Order.countDocuments(params);
+
+    res.json({ results: orders, count });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -65,8 +95,9 @@ export async function getOrders(req, res) {
 // Get User Orders
 export async function getUserOrders(req, res) {
   try {
-    const orders = await Order.find({ user: req.user._id })
-      .populate('products.product', 'name price');
+    const orders = await Order.find({
+      user: req.user._id
+    }).populate('items.product', 'name price');
     res.json(orders);
   } catch (err) {
     console.error(err.message);
@@ -77,31 +108,31 @@ export async function getUserOrders(req, res) {
 // Get Single Order (Admin can access any, users can access their own)
 export async function getOrder(req, res) {
   try {
-    const order = await Order.findById(req.params.id)
-      .populate('user', 'name email')
-      .populate('products.product', 'name price');
+    const { user } = req;
+    const order = await Order.findById(req.params.id);
+    const isOwner = !(user || order?.user) || order?.user.equals(user?._id);
+    const isMod = ['admin', 'moderator'].includes(user?.role);
 
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    if (req.user.role !== 'admin' && req.user.role !== 'moderator' && order.user._id.toString() !== req.user._id.toString()) {
+    if (!(isMod || isOwner)) {
       return res.status(403).json({ message: 'Not authorized to view this order' });
     }
 
-    res.json(order);
+    res.json(isMod ? order : omit(order, 'contact', 'address'));
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ message: 'Order not found' });
-    }
     res.status(500).send('Server Error');
   }
 }
 
-// Update Order Status (Admin and Moderator)
+// Update Order (Admin and Moderator)
 export async function updateOrder(req, res) {
-  const { status } = req.body;
+  const { status, contact, address, ...params } = req.body;
+
+  const items = await normalizeOrderItems(params.items);
 
   try {
     let order = await Order.findById(req.params.id);
@@ -110,6 +141,9 @@ export async function updateOrder(req, res) {
     }
 
     order.status = status ?? order.status;
+    order.contact = contact ?? order.contact;
+    order.address = address ?? order.address;
+    order.items = items ?? order.items;
 
     await order.save();
     res.json(order);
@@ -128,15 +162,6 @@ export async function deleteOrder(req, res) {
     const order = await Order.findById(req.params.id);
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
-    }
-
-    // Optionally, restock products
-    for (const item of order.products) {
-      const product = await Product.findById(item.product);
-      if (product) {
-        product.stock += item.quantity;
-        await product.save();
-      }
     }
 
     await order.remove();
