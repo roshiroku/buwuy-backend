@@ -1,3 +1,4 @@
+import { isValidObjectId, Types } from 'mongoose';
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import { omit } from '../utils/object.utils.js';
@@ -44,20 +45,29 @@ export async function createOrder(req, res) {
   }
 }
 
-// Get All Orders (Admin and Moderator)
+// Get All Orders (Admin, Moderator, and Users)
 export async function getOrders(req, res) {
   try {
-    const { skip, limit, sort, ...params } = req.query;
+    const { skip, limit, sort, user, ...params } = req.query;
+
+    if (user) {
+      const userId = isValidObjectId(user) ? Types.ObjectId.createFromHexString(user) : null;
+      params.user = userId;
+    }
+
+    if (!['admin', 'moderator'].includes(req.user.role) && params.userId != req.user._id) {
+      return res.status(403).json({ message: 'Not authorized to view orders for other users' });
+    }
 
     const pipeline = [
-      { $match: { ...params } },
+      { $match: params },
       {
         $addFields: {
           'contact.fullName': {
             $concat: [
-              { $ifNull: ['$contact.name.first', ''] },
+              { $ifNull: ['$contact.name.last', ''] },
               ' ',
-              { $ifNull: ['$contact.name.last', ''] }
+              { $ifNull: ['$contact.name.first', ''] }
             ]
           }
         }
@@ -117,11 +127,11 @@ export async function getOrder(req, res) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    if (!(isMod || isOwner)) {
+    if (!isMod && !isOwner) {
       return res.status(403).json({ message: 'Not authorized to view this order' });
     }
 
-    res.json(isMod ? order : omit(order, 'contact', 'address'));
+    res.json(order.user || isMod ? order : omit(order.toObject(), 'contact', 'address'));
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -131,7 +141,6 @@ export async function getOrder(req, res) {
 // Update Order (Admin and Moderator)
 export async function updateOrder(req, res) {
   const { status, contact, address, ...params } = req.body;
-
   const items = await normalizeOrderItems(params.items);
 
   try {

@@ -13,7 +13,7 @@ router.post('/', protect, multer().none(), createOrder);
 // @route   GET /api/orders
 // @desc    Get all orders
 // @access  Admin, Moderator
-router.get('/', protect, authorize('admin', 'moderator'), getOrders);
+router.get('/', protect, getOrders);
 
 // @route   GET /api/orders/user
 // @desc    Get orders of the logged-in user
