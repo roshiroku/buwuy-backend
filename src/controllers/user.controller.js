@@ -95,34 +95,6 @@ export async function updateUser(req, res) {
   }
 }
 
-// Update Profile
-export async function updateProfile(req, res) {
-  try {
-    const { name, email, password, phone, address } = req.body;
-    const avatar = normalizeFilePath(req.file) ?? req.body.avatar;
-    const user = await User.findById(req.user._id);
-
-    if (!user) {
-      deleteFile(req.file);
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    user.name = name ?? user.name;
-    user.email = email ?? user.email;
-    user.password = password ?? user.password;
-    user.phone = phone ?? user.phone;
-    user.avatar = avatar ?? user.avatar;
-    user.address = address ?? user.address;
-
-    await user.save();
-    res.json(omit(user.toObject(), 'password'));
-  } catch (err) {
-    deleteFile(req.file);
-    console.error(err.message);
-    res.status(500).send({ message: 'Server Error' });
-  }
-}
-
 // Delete User
 export async function deleteUser(req, res) {
   try {

@@ -37,16 +37,6 @@ router.put(
   userController.updateUser
 );
 
-// @route   PUT /api/users/profile
-// @desc    Update profile
-// @access  Authenticated User
-router.put(
-  '/profile',
-  protect,
-  uploadImage('uploads/users').single('avatar'),
-  userController.updateProfile
-);
-
 // @route   DELETE /api/users/:id
 // @desc    Delete user
 // @access  Admin
