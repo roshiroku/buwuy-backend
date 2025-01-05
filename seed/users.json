@@ -4,20 +4,95 @@
     "email": "admin@example.com",
     "password": "Abcd123!",
     "role": "admin",
-    "avatar": "https://example.com/avatars/admin.png"
+    "avatar": "https://example.com/avatars/admin.png",
+    "phone": "123-456-7890",
+    "address": {
+      "street": "123 Admin St",
+      "apt": "Suite 101",
+      "city": "Admin City",
+      "state": "Admin State",
+      "zip": "12345",
+      "country": "Adminland"
+    }
   },
   {
     "name": "Moderator User",
     "email": "moderator@example.com",
     "password": "Abcd456!",
     "role": "moderator",
-    "avatar": "https://example.com/avatars/moderator.png"
+    "avatar": "https://example.com/avatars/moderator.png",
+    "phone": "456-789-0123",
+    "address": {
+      "street": "456 Moderator Ave",
+      "apt": "Apt 202",
+      "city": "Mod City",
+      "state": "Mod State",
+      "zip": "67890",
+      "country": "Modland"
+    }
   },
   {
     "name": "Regular User",
     "email": "user@example.com",
     "password": "Abcd789!",
     "role": "user",
-    "avatar": "https://example.com/avatars/user.png"
+    "avatar": "https://example.com/avatars/user.png",
+    "phone": "789-012-3456",
+    "address": {
+      "street": "789 User Blvd",
+      "apt": "Unit 303",
+      "city": "User City",
+      "state": "User State",
+      "zip": "10111",
+      "country": "Userland"
+    }
+  },
+  {
+    "name": "Alice Johnson",
+    "email": "alice.johnson@example.com",
+    "password": "Alice123!",
+    "role": "user",
+    "avatar": "https://example.com/avatars/alice.png",
+    "phone": "222-333-4444",
+    "address": {
+      "street": "101 Wonderland Way",
+      "apt": "Room 404",
+      "city": "Wonderland",
+      "state": "Dream State",
+      "zip": "22222",
+      "country": "Imagineland"
+    }
+  },
+  {
+    "name": "Bob Smith",
+    "email": "bob.smith@example.com",
+    "password": "Bob123!",
+    "role": "user",
+    "avatar": "https://example.com/avatars/bob.png",
+    "phone": "333-444-5555",
+    "address": {
+      "street": "202 Elm St",
+      "apt": "Suite 505",
+      "city": "Springfield",
+      "state": "Illinois",
+      "zip": "62704",
+      "country": "USA"
+    }
+  },
+  {
+    "name": "Charlie Davis",
+    "email": "charlie.davis@example.com",
+    "password": "Charlie123!",
+    "role": "user",
+    "avatar": "https://example.com/avatars/charlie.png",
+    "phone": "444-555-6666",
+    "address": {
+      "street": "303 Maple Dr",
+      "apt": "Apt 606",
+      "city": "Smalltown",
+      "state": "Texas",
+      "zip": "75001",
+      "country": "USA"
+    }
   }
 ]
