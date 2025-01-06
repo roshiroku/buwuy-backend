@@ -21,7 +21,7 @@ async function normalizeOrderItems(input) {
       };
     }
 
-    items[id].amount += amount;
+    items[id].amount += Number(amount);
 
     if (items[id].amount < 1) {
       delete items[id];
