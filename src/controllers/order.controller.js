@@ -55,7 +55,7 @@ export async function getOrders(req, res) {
       params.user = userId;
     }
 
-    if (!['admin', 'moderator'].includes(req.user.role) && params.userId != req.user._id) {
+    if (!['admin', 'moderator'].includes(req.user.role) && !params.user.equals(req.user._id)) {
       return res.status(403).json({ message: 'Not authorized to view orders for other users' });
     }
 
