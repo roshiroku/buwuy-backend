@@ -4,7 +4,7 @@
     "email": "admin@example.com",
     "password": "Abcd123!",
     "role": "admin",
-    "avatar": "https://example.com/avatars/admin.png",
+    "avatar": "/uploads/users/admin-avatar.webp",
     "phone": "123-456-7890",
     "address": {
       "street": "123 Admin St",
