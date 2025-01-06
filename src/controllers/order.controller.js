@@ -168,12 +168,11 @@ export async function updateOrder(req, res) {
 // Delete Order (Admin and Moderator)
 export async function deleteOrder(req, res) {
   try {
-    const order = await Order.findById(req.params.id);
+    const order = await Order.findByIdAndDelete(req.params.id);
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
 
-    await order.remove();
     res.json({ message: 'Order removed' });
   } catch (err) {
     console.error(err.message);
