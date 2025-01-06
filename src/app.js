@@ -1,6 +1,7 @@
 import path from 'path';
 import express, { json } from 'express';
 import cors from 'cors';
+import logger from './middleware/logger.middleware.js';
 import authRoutes from './routes/auth.routes.js';
 import categoryRoutes from './routes/category.routes.js';
 import tagRoutes from './routes/tag.routes.js';
@@ -16,6 +17,8 @@ const app = express();
 app.use(cors());
 app.use(json());
 app.use('/uploads', express.static(path.resolve('uploads')));
+
+app.use(logger);
 
 // Routes
 app.use('/api/auth', authRoutes);
