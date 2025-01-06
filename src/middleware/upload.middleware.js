@@ -1,10 +1,19 @@
+import fs from 'fs';
 import multer from 'multer';
 import { extname } from 'path';
 
 export const upload = (path, { allowedTypes }) => {
+  // Ensure the directory exists
+  const ensureDirectoryExists = (dirPath) => {
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+  };
+
   // Set storage engine
   const storage = multer.diskStorage({
     destination(req, file, cb) {
+      ensureDirectoryExists(path);
       cb(null, path);
     },
     filename(req, file, cb) {
@@ -31,4 +40,4 @@ export const upload = (path, { allowedTypes }) => {
   });
 };
 
-export const uploadImage = (path, opts = {}) => upload(path, { ...opts, allowedTypes: /jpeg|jpg|png|gif/ });
+export const uploadImage = (path, opts = {}) => upload(path, { ...opts, allowedTypes: /jpeg|jpg|png|gif|webp/ });
