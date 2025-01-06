@@ -8,14 +8,6 @@ const imageSchema = new Schema({
   alt: String
 }, { _id: false });
 
-const variantSchema = new Schema({
-  name: { type: String, required: true },
-  description: String,
-  images: [imageSchema],
-  price: Number,
-  stock: Number
-}, { _id: false });
-
 const productSchema = new Schema({
   name: { type: String, unique: true, required: true },
   slug: { type: String, index: true, unique: true, required: true },
@@ -25,14 +17,12 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   stock: { type: Number, default: 0 },
   sold: { type: Number, default: 0 },
-  variants: [variantSchema],
   category: { type: String, ref: 'Category', index: true },
   tags: [{ type: String, ref: 'Tag' }]
 }, { timestamps: true });
 
 slugifyProp(productSchema);
 fileProp(productSchema, 'images.src');
-fileProp(productSchema, 'variants.images.src');
 
 productSchema.pre('insertMany', async function (next, docs) {
   const categories = await Category.find();

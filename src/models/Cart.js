@@ -16,12 +16,6 @@ const cartSchema = new Schema({
         ref: 'Product',
         required: true
       },
-      variant: {
-        type: Number,
-        min: 0,
-        required: true,
-        default: 0
-      },
       amount: {
         type: Number,
         min: 1,
@@ -47,20 +41,18 @@ async function normalizeCart(doc) {
   })).map((product) => [product._id, product]));
   const cart = {};
 
-  for (const { product: productId, variant: variantId = 0, amount } of doc.products) {
+  for (const { product: productId, amount } of doc.products) {
     const product = products[productId];
-    const key = `${productId}_${variantId}`;
-    const variant = variantId > 0 ? product.variants[variantId - 1] : product;
 
-    if (cart[key]) {
-      cart[key].amount += amount;
+    if (cart[productId]) {
+      cart[productId].amount += amount;
     } else {
-      cart[key] = { product: productId, variant: variantId, amount };
+      cart[productId] = { product: productId, amount };
     }
 
-    if (cart[key].amount < 1) {
-      delete cart[key];
-    } else if (cart[key].amount > variant.stock) {
+    if (cart[productId].amount < 1) {
+      delete cart[productId];
+    } else if (cart[productId].amount > product.stock) {
       throw new Error('Cart Error: Out of stock');
     }
   }
