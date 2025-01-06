@@ -6,12 +6,14 @@ const tagSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    maxlength: 32
   },
   slug: {
     type: String,
     index: true,
     unique: true,
-    required: true
+    required: true,
+    maxlength: 32
   }
 }, { timestamps: true });
 

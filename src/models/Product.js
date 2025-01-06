@@ -4,19 +4,28 @@ import Tag from './Tag.js';
 import { fileProp, slugifyProp } from '../utils/schema.utils.js';
 
 const imageSchema = new Schema({
-  src: { type: String, required: true },
+  src: {
+    type: String,
+    validate: {
+      validator: function (v) {
+        return v && /^(\/uploads\/|https?:\/\/)[\w\-./]+(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i.test(v);
+      },
+      message: (props) => `${props.value} is not a valid image path!`
+    },
+    required: true
+  },
   alt: String
 }, { _id: false });
 
 const productSchema = new Schema({
-  name: { type: String, unique: true, required: true },
-  slug: { type: String, index: true, unique: true, required: true },
-  byline: { type: String, required: true },
-  description: { type: String, required: true },
+  name: { type: String, unique: true, required: true, maxlength: 32 },
+  slug: { type: String, index: true, unique: true, required: true, maxlength: 32 },
+  byline: { type: String, required: true, maxlength: 128 },
+  description: { type: String, required: true, maxlength: 1024 },
   images: [imageSchema],
-  price: { type: Number, required: true },
-  stock: { type: Number, default: 0 },
-  sold: { type: Number, default: 0 },
+  price: { type: Number, required: true, min: 0 },
+  stock: { type: Number, default: 0, min: 0 },
+  sold: { type: Number, default: 0, min: 0 },
   category: { type: String, ref: 'Category', index: true },
   tags: [{ type: String, ref: 'Tag' }]
 }, { timestamps: true });

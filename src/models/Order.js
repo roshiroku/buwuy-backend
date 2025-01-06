@@ -1,12 +1,12 @@
 import { Schema, model } from 'mongoose';
 
 export const addressSchema = new Schema({
-  country: { type: String, required: true },
-  state: String,
-  city: { type: String, required: true },
-  street: { type: String, required: true },
-  apt: { type: String, required: true },
-  zip: { type: String, required: true }
+  country: { type: String, required: true, maxlength: 64 },
+  state: { type: String, maxlength: 64 },
+  city: { type: String, required: true, maxlength: 64 },
+  street: { type: String, required: true, maxlength: 64 },
+  apt: { type: String, required: true, maxlength: 16 },
+  zip: { type: String, required: true, maxlength: 16 }
 }, { _id: false });
 
 const orderSchema = new Schema({
