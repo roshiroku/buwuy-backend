@@ -9,7 +9,7 @@ const cartSchema = new Schema({
     unique: true,
     required: true
   },
-  products: {
+  items: {
     type: [{
       product: {
         type: Schema.Types.ObjectId,
@@ -37,11 +37,11 @@ cartSchema.pre('findOneAndUpdate', function () {
 
 async function normalizeCart(doc) {
   const products = Object.fromEntries((await Product.find({
-    _id: doc.products.map(({ product }) => product)
+    _id: doc.items.map(({ product }) => product)
   })).map((product) => [product._id, product]));
   const cart = {};
 
-  for (const { product: productId, amount } of doc.products) {
+  for (const { product: productId, amount } of doc.items) {
     const product = products[productId];
 
     if (cart[productId]) {
@@ -57,7 +57,7 @@ async function normalizeCart(doc) {
     }
   }
 
-  doc.products = Object.values(cart);
+  doc.items = Object.values(cart);
 }
 
 export default model('Cart', cartSchema);

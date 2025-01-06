@@ -3,11 +3,11 @@ import Order from '../models/Order.js';
 
 async function cartOrderItems(cart) {
   const products = Object.fromEntries((await Product.find({
-    _id: cart.products.map(({ product }) => product)
+    _id: cart.items.map(({ product }) => product)
   })).map((product) => [product._id, product]));
   const items = {};
 
-  for (const { product: id, amount } of cart.products) {
+  for (const { product: id, amount } of cart.items) {
     const product = products[id];
 
     if (!items[id]) {

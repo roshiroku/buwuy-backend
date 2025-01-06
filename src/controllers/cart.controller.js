@@ -5,9 +5,9 @@ export async function getCart(req, res) {
     const { _id: user } = req.user;
     const cart = await Cart
       .findOne({ user })
-      .populate('products.product')
+      .populate('items.product')
       .select('-user');
-    res.json(cart || { products: [] });
+    res.json(cart || { items: [] });
   } catch (err) {
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
@@ -17,13 +17,13 @@ export async function getCart(req, res) {
 export async function updateCart(req, res) {
   try {
     const { _id: user } = req.user;
-    const { products } = req.body;
-    let cart = { products: [] };
+    const { items } = req.body;
+    let cart = { items: [] };
 
-    if (products?.some(({ amount }) => amount > 0)) {
+    if (items?.some(({ amount }) => amount > 0)) {
       cart = await Cart
-        .findOneAndUpdate({ user }, { user, products }, { upsert: true, new: true })
-        .populate('products.product')
+        .findOneAndUpdate({ user }, { user, items }, { upsert: true, new: true })
+        .populate('items.product')
         .select('-user');
     } else {
       await Cart.findOneAndDelete({ user });
@@ -39,7 +39,7 @@ export async function updateCart(req, res) {
 export async function clearCart(req, res) {
   try {
     await Cart.findOneAndDelete({ user: req.user._id });
-    res.json({ products: [] });
+    res.json({ items: [] });
   } catch (err) {
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
