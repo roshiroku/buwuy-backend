@@ -1,5 +1,7 @@
+import { isValidObjectId, Types } from 'mongoose';
 import Category from '../models/Category.js';
 import Product from '../models/Product.js';
+import Tag from '../models/Tag.js';
 import { deleteFile, normalizeFilePath } from '../utils/file.utils.js';
 
 function handleUploads(req) {
@@ -9,7 +11,7 @@ function handleUploads(req) {
   images.forEach((image, i) => {
     if (!image.src) {
       const index = files.findIndex(({ fieldname }) => {
-        return fieldname.match(new RegExp(`images\\[${i}\\]\\[src\\]`));
+        return fieldname.match(new RegExp(`images\[${i}\]\[src\]`));
       });
       if (index > -1) {
         image.src = normalizeFilePath(files[index]);
@@ -51,15 +53,41 @@ export async function createProduct(req, res) {
 // Get Products
 export async function getProducts(req, res) {
   try {
-    const { skip, limit, sort, categorySlug, ...params } = req.query;
+    const { skip, limit, sort, _id, category, q: search, tags, ...params } = req.query;
 
-    if (categorySlug) {
-      const category = await Category.findOne({ slug: categorySlug });
-      params.category = [params.category, category?._id].filter(Boolean);
+    // Handle _id filter
+    if (_id) {
+      const ids = Array.isArray(_id) ? _id : [_id];
+      const objectIds = ids.map((id) => (
+        isValidObjectId(id) ? Types.ObjectId.createFromHexString(id) : null
+      )).filter(Boolean);
+      params._id = { $in: objectIds };
+    }
+
+    // Handle tag filtering
+    if (tags?.filter(Boolean).length) {
+      const tagList = Array.isArray(tags) ? tags : [tags];
+      const tagConditions = await Promise.all(tagList.map(async (tag) => {
+        if (isValidObjectId(tag)) return tag;
+        const foundTag = await Tag.findOne({ slug: tag });
+        return foundTag?._id.toString() || null;
+      }));
+      params.tags = { $all: tagConditions.filter(Boolean) };
+    }
+
+    // Handle category filtering
+    if (category) {
+      const categoryList = Array.isArray(category) ? category : [category];
+      const categoryConditions = await Promise.all(categoryList.map(async (cat) => {
+        if (isValidObjectId(cat)) return cat;
+        const foundCategory = await Category.findOne({ slug: cat });
+        return foundCategory?._id.toString() || null;
+      }));
+      params.category = { $in: categoryConditions.filter(Boolean) };
     }
 
     const pipeline = [
-      { $match: params },
+      { $match: { ...params } },
       { $addFields: { category: { $toObjectId: '$category' } } },
       {
         $lookup: {
@@ -72,6 +100,20 @@ export async function getProducts(req, res) {
       { $unwind: { path: '$category', preserveNullAndEmptyArrays: true } }
     ];
 
+    // Handle search (free-text search)
+    if (search) {
+      pipeline.push({
+        $match: {
+          $or: [
+            { name: { $regex: search, $options: 'i' } },
+            { byline: { $regex: search, $options: 'i' } },
+            // { description: { $regex: search, $options: 'i' } }
+          ]
+        }
+      });
+    }
+
+    // Handle sorting
     if (sort) {
       const sortBy = sort.startsWith('-') ? sort.slice(1) : sort;
       const sortDir = sort.startsWith('-') ? -1 : 1;
@@ -83,11 +125,16 @@ export async function getProducts(req, res) {
       });
     }
 
+    // Handle pagination
     skip && pipeline.push({ $skip: Number(skip) });
     limit && pipeline.push({ $limit: Number(limit) });
 
+    // Execute aggregation
     const results = await Product.aggregate(pipeline);
-    const count = await Product.countDocuments(params);
+
+    // Correct document count
+    const countPipeline = pipeline.filter(({ $skip, $limit }) => !$skip && !$limit);
+    const [{ count = 0 } = {}] = await Product.aggregate([...countPipeline, { $count: 'count' }]);
 
     res.json({ results, count });
   } catch (err) {
