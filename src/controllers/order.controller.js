@@ -120,7 +120,7 @@ export async function getOrder(req, res) {
   try {
     const { user } = req;
     const order = await Order.findById(req.params.id);
-    const isOwner = !(user || order?.user) || order?.user.equals(user?._id);
+    const isOwner = !(user || order?.user) || order?.user?.equals(user?._id);
     const isMod = ['admin', 'moderator'].includes(user?.role);
 
     if (!order) {
