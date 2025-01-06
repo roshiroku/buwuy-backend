@@ -1,7 +1,7 @@
 [
   {
     "user": "admin@example.com",
-    "contact": {
+    "client": {
       "name": {
         "first": "Admin",
         "last": "User"
@@ -31,7 +31,7 @@
   },
   {
     "user": "user@example.com",
-    "contact": {
+    "client": {
       "name": {
         "first": "Regular",
         "last": "User"
@@ -61,7 +61,7 @@
   },
   {
     "user": null,
-    "contact": {
+    "client": {
       "name": {
         "first": "Guest",
         "last": "Shopper"
@@ -91,7 +91,7 @@
   },
   {
     "user": "moderator@example.com",
-    "contact": {
+    "client": {
       "name": {
         "first": "Moderator",
         "last": "User"
@@ -121,7 +121,7 @@
   },
   {
     "user": null,
-    "contact": {
+    "client": {
       "name": {
         "first": "Anonymous",
         "last": "Guest"
@@ -151,7 +151,7 @@
   },
   {
     "user": "alice.johnson@example.com",
-    "contact": {
+    "client": {
       "name": {
         "first": "Alice",
         "last": "Johnson"

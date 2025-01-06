@@ -29,9 +29,9 @@ async function cartOrderItems(cart) {
 export async function startCheckout(req, res) {
   try {
     const { user } = req;
-    const { contact, address, cart } = req.body;
+    const { client, address, cart } = req.body;
     const items = await cartOrderItems(cart);
-    const order = await Order.create({ user: user?._id, contact, address, items });
+    const order = await Order.create({ user: user?._id, client, address, items });
     res.status(201).json(order);
   } catch (err) {
     console.error(err.message);

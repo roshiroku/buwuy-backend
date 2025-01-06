@@ -11,7 +11,7 @@ export const addressSchema = new Schema({
 
 const orderSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  contact: {
+  client: {
     name: {
       first: { type: String, required: true },
       last: { type: String, required: true }

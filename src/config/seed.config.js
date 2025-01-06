@@ -76,12 +76,13 @@ export default async function seedData() {
     if (orderData && !await Order.countDocuments()) {
       isSeeding = true;
       const users = await User.find({}, 'email _id');
-      const products = await Product.find({}, 'slug _id name price');
+      const products = await Product.find({}, 'slug _id name price sold');
 
       const orders = orderData.map((order) => {
         const user = users.find(({ email }) => email === order.user);
         const items = order.items.map(item => {
           const product = products.find(p => p.slug === item.product);
+          product.sold += item.amount;
           return {
             product: product._id,
             name: product.name,
@@ -92,7 +93,7 @@ export default async function seedData() {
 
         return {
           user: user?._id || null,
-          contact: order.contact,
+          client: order.client,
           address: order.address,
           items,
           subtotal: items.reduce((total, item) => total + item.price * item.amount, 0),
@@ -101,7 +102,8 @@ export default async function seedData() {
       });
 
       await Order.insertMany(orders);
-      console.log('Orders seeded');
+      await Promise.all(products.map(p => p.save()));
+      console.log('Orders seeded and products updated');
     }
 
     if (isSeeding) {

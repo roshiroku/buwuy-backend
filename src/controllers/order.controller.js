@@ -33,11 +33,11 @@ async function normalizeOrderItems(input) {
 
 // Create Order
 export async function createOrder(req, res) {
-  const { user, contact, address, ...params } = req.body;
+  const { user, client, address, ...params } = req.body;
 
   try {
     const items = normalizeOrderItems(params.items);
-    const order = await Order.create({ user, contact, address, items });
+    const order = await Order.create({ user, client, address, items });
     res.status(201).json(order);
   } catch (err) {
     console.error(err.message);
@@ -63,11 +63,11 @@ export async function getOrders(req, res) {
       { $match: params },
       {
         $addFields: {
-          'contact.fullName': {
+          'client.fullName': {
             $concat: [
-              { $ifNull: ['$contact.name.last', ''] },
+              { $ifNull: ['$client.name.last', ''] },
               ' ',
-              { $ifNull: ['$contact.name.first', ''] }
+              { $ifNull: ['$client.name.first', ''] }
             ]
           }
         }
@@ -80,8 +80,8 @@ export async function getOrders(req, res) {
       pipeline.push({
         $sort: {
           [
-            sortBy === 'name' ? 'contact.fullName' :
-              sortBy === 'email' ? 'contact.email' :
+            sortBy === 'name' ? 'client.fullName' :
+              sortBy === 'email' ? 'client.email' :
                 sortBy
           ]: sortDir,
           _id: sortDir
@@ -131,7 +131,7 @@ export async function getOrder(req, res) {
       return res.status(403).json({ message: 'Not authorized to view this order' });
     }
 
-    res.json(order.user || isMod ? order : omit(order.toObject(), 'contact', 'address'));
+    res.json(order.user || isMod ? order : omit(order.toObject(), 'client', 'address'));
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
@@ -140,7 +140,7 @@ export async function getOrder(req, res) {
 
 // Update Order (Admin and Moderator)
 export async function updateOrder(req, res) {
-  const { status, contact, address, ...params } = req.body;
+  const { status, client, address, ...params } = req.body;
   const items = await normalizeOrderItems(params.items);
 
   try {
@@ -150,7 +150,7 @@ export async function updateOrder(req, res) {
     }
 
     order.status = status ?? order.status;
-    order.contact = contact ?? order.contact;
+    order.client = client ?? order.client;
     order.address = address ?? order.address;
     order.items = items ?? order.items;
 
