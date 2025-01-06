@@ -77,9 +77,27 @@ export async function updateProfile(req, res) {
     await user.save();
 
     const token = generateToken(pick(user, '_id', 'role', 'avatar'));
-    res.status(201).json({ ...omit(user.toObject(), 'password'), token });
+    res.json({ ...omit(user.toObject(), 'password'), token });
   } catch (err) {
     deleteFile(req.file);
+    console.error(err.message);
+    res.status(500).send({ message: 'Server Error' });
+  }
+}
+
+
+// Update Settings
+export async function updateSettings(req, res) {
+  try {
+    const { user } = req;
+    const { theme } = req.body;
+
+    user.settings ??= {};
+    user.settings.theme = theme ?? user.settings.theme;
+
+    await user.save();
+    res.json(omit(user.toObject(), 'password'));
+  } catch (err) {
     console.error(err.message);
     res.status(500).send({ message: 'Server Error' });
   }

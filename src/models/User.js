@@ -13,6 +13,9 @@ const userSchema = new Schema({
     type: String,
     enum: ['admin', 'moderator', 'user'],
     default: 'user',
+  },
+  settings: {
+    theme: { mode: { type: String, default: '' } }
   }
 }, { timestamps: true });
 
