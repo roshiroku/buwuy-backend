@@ -11,8 +11,9 @@ function handleUploads(req) {
   images.forEach((image, i) => {
     if (!image.src) {
       const index = files.findIndex(({ fieldname }) => {
-        return fieldname.match(new RegExp(`images\[${i}\]\[src\]`));
+        return fieldname.match(new RegExp(`images\\[${i}\\]\\[src\\]`));
       });
+      
       if (index > -1) {
         image.src = normalizeFilePath(files[index]);
         files.splice(index, 1);
